@@ -10,6 +10,9 @@
     <meta name="keywords" content="psilocybin, harm reduction, psychedelic therapy, escalating protocol, bad trip, psychedelic integration, johns hopkins, microdose, macrodose">
     <meta name="author" content="Protocol 1, 2, 3 Collective">
     
+    <!-- Favicon (Browser tab icon) -->
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M8 38H40" stroke="%234C7A5D" stroke-width="6" stroke-linecap="round"/><path d="M8 24H28" stroke="%234C7A5D" stroke-width="6" stroke-linecap="round"/><path d="M8 10H16" stroke="%234C7A5D" stroke-width="6" stroke-linecap="round"/></svg>' type="image/svg+xml">
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Protocol 1, 2, 3 | Harm Reduction">
@@ -64,9 +67,10 @@
     <!-- Automatic Redirect Script (Shielded for Preview/Local) -->
     <script>
         try {
+            // Only executes redirect if on a real server (http/https)
             if (!localStorage.getItem('lang_chosen') && window.location.protocol.startsWith('http')) {
                 var userLang = navigator.language || navigator.userLanguage;
-                // If language STARTS with "pt", redirect to Portuguese
+                // If language STARTS with "pt" (pt-BR, pt-PT), redirect to Portuguese
                 if (userLang.toLowerCase().startsWith('pt')) {
                     window.location.replace('index.html');
                 }
@@ -99,12 +103,10 @@
     <!-- S.O.S SCREEN -->
     <div id="sosModal" role="dialog" aria-modal="true" class="fixed inset-0 z-[60] bg-black text-white flex-col p-4 sm:p-8 overflow-y-auto" style="display: none;">
         <div class="max-w-4xl mx-auto w-full pt-4 md:pt-8 pb-16">
-            <div class="flex justify-between items-center mb-10">
-                <button onclick="closeSOS()" aria-label="Back to guide" class="text-white font-bold flex items-center transition px-5 py-2.5 rounded-lg bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:border-gray-600 shadow-sm">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Back to Guide
-                </button>
-            </div>
+            <button onclick="closeSOS()" aria-label="Back to guide" class="mb-10 text-white font-bold flex items-center transition px-5 py-2.5 rounded-lg w-max bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:border-gray-600 shadow-sm">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Guide
+            </button>
             
             <h1 class="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-6 text-white tracking-tighter">
                 <span class="text-red-600">Protocol S.O.S</span>
@@ -238,7 +240,7 @@
             <!-- ============================================== -->
             <div id="tab-user" style="display: block;" role="tabpanel">
                 
-                <!-- Imagem blindada contra falhas -->
+                <!-- Shielded Image (bg-gray-200 + hide on error) -->
                 <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
                     <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Macro representation of an illuminated neural network" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
                 </div>
@@ -288,8 +290,8 @@
                     <p>The mushroom's cell wall is made of chitin, a hard fiber that the stomach has some difficulty breaking down. In some people, this can cause mild discomfort or nausea in the early stages of the experience, although many people feel absolutely no nausea. Since chewing dry mushrooms has an earthy taste that not everyone tolerates, you can use one of these practical methods to ease ingestion and minimize any chance of discomfort:</p>
 
                     <ol>
-                        <li><strong>Lemon Tek (Citric Acid):</strong> Place the chopped or powdered mushroom in a cup and cover it with freshly squeezed pure lemon juice. Let it sit for 15 to 20 minutes (stirring occasionally). The citric acid "pre-digests" the chitin. After the time is up, add a little water and drink it all at once (liquid and mushrooms). <strong>Advantage:</strong> Greatly reduces the chance of potential nausea and accelerates the onset.</li>
-                        <li><strong>Ginger Tea:</strong> Boil water, turn off the heat and wait 1 minute (boiling water destroys the active substance). Add the chopped/powdered mushroom and a few slices of fresh ginger. Let it steep for 15 minutes. Strain the liquid and throw the mushroom mass away, drinking only the tea. <strong>Advantage:</strong> The psilocybin will extract into the water, ginger is a natural antiemetic (cuts potential nausea), and the strong flavor masks the mushroom taste.</li>
+                        <li><strong>Lemon Tek (Citric Acid):</strong> Place the chopped or powdered mushroom in a cup and cover it with freshly squeezed pure lemon juice mixed with a little water. Let it sit for 15 to 20 minutes (stirring occasionally). The citric acid "pre-digests" the chitin. <strong>Advantage:</strong> Greatly reduces the chance of potential nausea and accelerates the onset. Drink it all at once (liquid and mushrooms).</li>
+                        <li><strong>Ginger Tea:</strong> Boil water, turn off the heat and wait 1 minute (boiling water destroys the active substance). Add the chopped/powdered mushroom and a few slices of fresh ginger. Let it steep for 15 minutes. <strong>Strain the liquid and throw the mushroom mass away</strong>, drinking only the tea. <strong>Advantage:</strong> The psilocybin will extract into the water, ginger is a natural antiemetic (cuts potential nausea), and you avoid digesting the hard mushroom fiber.</li>
                         <li><strong>Light Foods (Yogurt or Banana):</strong> Mix the chopped mushroom with something pasty that you like, such as plain yogurt or peanut butter, or put it inside a piece of banana. This completely masks the texture and taste. <strong>Warning:</strong> Avoid mixing with pure cow's milk or heavy/greasy foods, as slow digestion can cause lethargy and physical discomfort.</li>
                     </ol>
 
@@ -337,7 +339,7 @@
                         </div>
                     </div>
 
-                    <!-- STAIRS IMAGE -->
+                    <!-- Shielded Stairs Image -->
                     <div class="my-12 w-full h-48 md:h-72 rounded-2xl overflow-hidden shadow-sm border border-gray-100 not-prose bg-gray-200">
                         <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Concrete stairs - 3 phase method" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
                     </div>
@@ -439,7 +441,7 @@
             <!-- ============================================== -->
             <div id="tab-facilitador" style="display: none;" role="tabpanel">
                 
-                <!-- HERO IMAGE FACILITADOR -->
+                <!-- Shielded Hero Image Facilitator -->
                 <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
                     <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Macro representation of an illuminated neural network" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
                 </div>
@@ -545,7 +547,7 @@
                         </div>
                     </div>
 
-                    <!-- STAIRS IMAGE -->
+                    <!-- Shielded Stairs Image -->
                     <div class="my-12 w-full h-48 md:h-80 rounded-xl overflow-hidden border border-gray-100 not-prose bg-gray-200">
                         <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Concrete stairs - 3 phase method" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
                     </div>
