@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & AEO Meta Tags -->
+    <title>Protocol 1, 2, 3 | Safe Therapy and Self-Administration with Psilocybin</title>
+    <meta name="description" content="Open-source guide for harm reduction and tactical integration for the therapeutic use of psilocybin. Learn the 3-phase escalating protocol and somatic mapping.">
+    <meta name="keywords" content="psilocybin, harm reduction, psychedelic therapy, escalating protocol, bad trip, psychedelic integration, johns hopkins, microdose, macrodose">
+    <meta name="author" content="Protocol 1, 2, 3 Collective">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Protocol 1, 2, 3 | Harm Reduction">
+    <meta property="og:description" content="Open-source guide for safe and structured psilocybin self-administration.">
+    <meta property="og:url" content="https://protocolo123.com/en.html">
+    
+    <!-- Tailwind CSS with typography plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        'chumbo': '#1A1A1A',
+                        'verde-clinico': '#4C7A5D',
+                        'bg-app': '#F4F4F5',
+                    },
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                color: '#374151',
+                                a: { color: '#4C7A5D', '&:hover': { color: '#2f4f3b' } },
+                                h2: { color: '#1A1A1A', borderBottom: '1px solid #e5e7eb', paddingBottom: '0.5rem', marginTop: '3rem' },
+                                h3: { color: '#2d3748', marginTop: '2rem' },
+                                blockquote: { borderLeftColor: '#4C7A5D', backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '0 0.5rem 0.5rem 0', fontStyle: 'normal', color: '#1A1A1A' },
+                                strong: { color: '#1A1A1A' },
+                            },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; background-color: #F4F4F5; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F4F4F5; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        body.modal-open { overflow: hidden; }
+    </style>
+
+    <!-- Automatic Redirect Script (Shielded for Preview/Local) -->
+    <script>
+        try {
+            if (!localStorage.getItem('lang_chosen') && window.location.protocol.startsWith('http')) {
+                var userLang = navigator.language || navigator.userLanguage;
+                // If language STARTS with "pt", redirect to Portuguese
+                if (userLang.toLowerCase().startsWith('pt')) {
+                    window.location.replace('index.html');
+                }
+            }
+        } catch (e) {
+            console.warn("Redirection blocked by preview environment.");
+        }
+    </script>
+</head>
+<body class="text-gray-800 font-sans antialiased">
+
+    <!-- LEGAL MODAL -->
+    <div id="legalModal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div class="bg-white max-w-3xl w-full p-6 md:p-12 rounded-xl shadow-2xl border-t-8 border-red-700 overflow-y-auto max-h-[90vh]">
+            <h2 class="text-xl md:text-2xl font-black text-chumbo mb-6 uppercase tracking-wide">Harm Reduction Notice & Disclaimer</h2>
+            
+            <div class="space-y-5 text-gray-700 leading-relaxed text-sm md:text-base">
+                <p><strong class="text-gray-900">1. NO ENCOURAGEMENT:</strong> This site does <strong>NOT</strong> encourage, prescribe, provide, or advocate the use of psilocybin or any other illicit substance.</p>
+                <p><strong class="text-gray-900">2. HARM REDUCTION:</strong> The content herein is strictly informational. It is designed exclusively as a Harm Reduction tool for individuals who, on their own account, risk, and free will, <strong>have already made the prior and irrevocable decision</strong> to consume the substance.</p>
+                <p><strong class="text-gray-900">3. MEDICAL RISKS:</strong> Psilocybin is potent. People with a personal or family history of schizophrenia, bipolar disorder, or psychosis face a real risk of episodes. The substance elevates blood pressure and has severe interactions with psychiatric medications (SSRIs, MAOIs, Lithium).</p>
+                <p><strong class="text-gray-900">4. TOTAL DISCLAIMER:</strong> The authors, developers, and maintainers of this anonymous and open-source project <strong>ASSUME NO RESPONSIBILITY</strong> for any civil, criminal, or medical damages (physical, psychological, emotional, or legal) resulting from the application of the information read here. The decision to use and its consequences are entirely the reader's responsibility.</p>
+            </div>
+            
+            <button onclick="acceptLegal()" aria-label="Accept terms and access content" class="mt-10 w-full bg-chumbo text-white font-bold py-4 rounded-lg hover:bg-black transition shadow-lg text-lg">
+                I UNDERSTAND AND ASSUME ALL RISKS
+            </button>
+        </div>
+    </div>
+
+    <!-- S.O.S SCREEN -->
+    <div id="sosModal" role="dialog" aria-modal="true" class="fixed inset-0 z-[60] bg-black text-white flex-col p-4 sm:p-8 overflow-y-auto" style="display: none;">
+        <div class="max-w-4xl mx-auto w-full pt-4 md:pt-8 pb-16">
+            <div class="flex justify-between items-center mb-10">
+                <button onclick="closeSOS()" aria-label="Back to guide" class="text-white font-bold flex items-center transition px-5 py-2.5 rounded-lg bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:border-gray-600 shadow-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Back to Guide
+                </button>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-6 text-white tracking-tighter">
+                <span class="text-red-600">Protocol S.O.S</span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-12 text-gray-300 border-b border-gray-800 pb-10">
+                So-called "bad trips" are usually just repressed psychological material surfacing forcefully, mixed with the ego's resistance. If panic sets in, follow this protocol:
+            </p>
+            
+            <div class="space-y-12">
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">1.</span> Change Body Geometry and Environment</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 pl-8 sm:pl-10 md:pl-12">If you are panicking while lying down, sit up. If you are in the dark, turn on a dim light. Change the music to something calm, familiar, and without lyrics. A physical change breaks the mental loop.</p>
+                </div>
+                
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">2.</span> The Physiology Mantra</h2>
+                    <p class="text-xl sm:text-2xl md:text-3xl italic font-medium text-white pl-8 sm:pl-10 md:pl-12 leading-relaxed border-l-4 border-red-600">
+                        "I took a mushroom. The dose was calculated. My body is safe, this is just my mind reacting to the chemistry. It will be over in a few hours."
+                    </p>
+                </div>
+                
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">3.</span> The "Dive in, don't flee" Rule</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 pl-8 sm:pl-10 md:pl-12">If a frightening vision (like a "demon" or a dark trauma) appears, trying to run from it generates anxiety. Remember: <strong>"Move toward the image. Ask it: Why are you here? What do you want to teach me?"</strong> Adopting a posture of curiosity significantly reduces the fear response.</p>
+                </div>
+                
+                <!-- Diaphragmatic Breathing Block -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 md:p-12 mt-16 text-center overflow-hidden">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">4. Diaphragmatic Breathing (Anchoring)</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 mb-8 md:mb-10">Hand on your belly. Do this for a few minutes to deactivate the sympathetic nervous system.</p>
+                    
+                    <div class="grid grid-cols-[auto_auto_auto] gap-x-3 md:gap-x-6 gap-y-4 md:gap-y-6 w-fit mx-auto text-left items-center text-base sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-wider md:tracking-widest uppercase">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        <span class="text-gray-300">Inhale</span>
+                        <span class="text-red-500">4 Seconds</span>
+                        
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-yellow-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-gray-300">Hold</span>
+                        <span class="text-yellow-500">4 Seconds</span>
+                        
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="text-gray-300">Exhale</span>
+                        <span class="text-blue-500">6 Seconds</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-12 border-t border-gray-800">
+                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-red-500 flex items-center">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        The Red Line - When to call medical help
+                    </h2>
+                    <ul class="list-none space-y-4 text-gray-400 text-base sm:text-lg pl-0 md:pl-11">
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Severe and continuous chest pain or radiation to the left arm (potential cardiac crisis due to increased blood pressure).</li>
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Severe difficulty breathing (not to be confused with anxious panting) or fainting/total loss of consciousness.</li>
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Disorganized behavior with a real and imminent risk of violence towards oneself or others (e.g., attempting to jump out a window, extreme physical aggression that does not yield to loop-breaking or anchoring).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S.O.S FLOATING BUTTON -->
+    <button onclick="openSOS()" aria-label="Open emergency protocol" class="fixed bottom-6 right-6 z-40 bg-red-600 text-white w-16 h-16 md:w-20 md:h-20 rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)] flex flex-col items-center justify-center border-2 border-white hover:scale-105 transition transform font-black tracking-tighter hover:bg-red-700 group">
+        <span class="text-lg md:text-xl leading-none">S.O.S</span>
+        <span class="text-[9px] md:text-[10px] uppercase mt-1 opacity-90 group-hover:opacity-100">Bad Trip</span>
+    </button>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-3 md:h-20 md:py-0">
+                <div class="flex items-center w-full md:w-auto justify-between md:justify-start mb-3 md:mb-0">
+                    <div class="flex items-center">
+                        <svg class="h-6 w-auto sm:h-7 text-chumbo mr-2 sm:mr-3" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 38H40" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M8 24H28" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M8 10H16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="font-black text-xl sm:text-2xl tracking-tighter text-chumbo">PROTOCOL 1, 2, 3</span>
+                    </div>
+                    <!-- LANGUAGE SWITCHER (MOBILE) -->
+                    <div class="flex md:hidden items-center space-x-3 ml-4 border-l border-gray-200 pl-4">
+                        <a href="index.html" onclick="localStorage.setItem('lang_chosen', 'true')" class="text-xs font-bold text-gray-400 hover:text-chumbo transition">PT</a>
+                        <span class="text-gray-300 text-xs">|</span>
+                        <span class="text-xs font-black text-chumbo">EN</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center w-full md:w-auto">
+                    <nav class="flex items-center space-x-1 sm:space-x-2 w-full md:w-auto justify-center" role="tablist">
+                        <button onclick="switchTab('tab-user')" id="btn-user" role="tab" aria-selected="true" class="px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none">User Guide</button>
+                        <button onclick="switchTab('tab-facilitador')" id="btn-facilitador" role="tab" aria-selected="false" class="px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none">Facilitator Guide</button>
+                    </nav>
+                    <!-- LANGUAGE SWITCHER (DESKTOP) -->
+                    <div class="hidden md:flex items-center space-x-3 ml-6 border-l border-gray-200 pl-6">
+                        <a href="index.html" onclick="localStorage.setItem('lang_chosen', 'true')" class="text-sm font-bold text-gray-400 hover:text-chumbo transition">PT</a>
+                        <span class="text-gray-300">|</span>
+                        <span class="text-sm font-black text-chumbo">EN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- MASTER TITLE -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-chumbo tracking-tight leading-tight">
+                Practical Guide to Therapy with Psilocybin
+            </h1>
+        </div>
+
+        <!-- GATEWAY -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10" role="tablist">
+            <button onclick="switchTab('tab-user')" id="btn-gateway-user" role="tab" aria-selected="true" class="p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer">
+                <h2 class="text-xl md:text-2xl font-bold mb-1 md:mb-2">User Guide</h2>
+                <p class="text-gray-300 text-xs md:text-sm font-medium">For those undergoing the experience.</p>
+            </button>
+            <button onclick="switchTab('tab-facilitador')" id="btn-gateway-facilitador" role="tab" aria-selected="false" class="p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer">
+                <h2 class="text-xl md:text-2xl font-bold mb-1 md:mb-2">Facilitator Guide</h2>
+                <p class="text-gray-500 text-xs md:text-sm font-medium">For those providing support and anchoring.</p>
+            </button>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-12" id="conteudo-guias">
+            
+            <!-- ============================================== -->
+            <!-- TAB 1: USER GUIDE                              -->
+            <!-- ============================================== -->
+            <div id="tab-user" style="display: block;" role="tabpanel">
+                
+                <!-- Imagem blindada contra falhas -->
+                <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                    <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Macro representation of an illuminated neural network" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                </div>
+
+                <header class="mb-12 border-b pb-8">
+                    <h2 class="text-3xl md:text-4xl font-black text-chumbo tracking-tight leading-tight mb-2">
+                        Manual for the Escalating Self-Administration Protocol or <strong class="text-verde-clinico font-bold tracking-tight">“Protocol 1, 2, 3”</strong>
+                    </h2>
+                </header>
+
+                <article class="prose prose-lg max-w-none text-gray-800">
+                    
+                    <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-lg mb-10 text-gray-800 text-base shadow-sm">
+                        <strong class="text-red-700 uppercase tracking-wide text-sm block mb-2">Harm Reduction Notice:</strong>
+                        <p class="mt-0">This manual is for educational and harm reduction purposes. Psilocybin is a potent substance. Self-administration, especially in high doses (Phase 3), involves psychological risks. Individuals with a personal or family history of schizophrenia, bipolar disorder, or psychosis should not use psychedelics.</p>
+                        <p>Individuals with a history of cardiovascular issues — uncontrolled hypertension, arrhythmias, or heart disease — should also avoid use without medical supervision. Psilocybin causes a temporary increase in blood pressure and heart rate during the experience.</p>
+                        <p class="mb-0">Mixing with psychiatric medications requires extra caution for two distinct reasons: SSRIs tend to reduce or completely nullify the effects of psilocybin (due to a <em>downregulation</em> mechanism of 5-HT2A receptors); while MAOIs and Lithium can cause severe and potentially dangerous interactions. Consult a professional before any combined use.</p>
+                    </div>
+
+                    <h2>PART 1: Scientific Foundation - What happens in the brain?</h2>
+                    <p>To extract real results, you need to abandon the mystical idea and understand the machine. Psilocybin is not a "magic cure"; it is a chemical catalyst that creates a window of neurological opportunity.</p>
+
+                    <ul>
+                        <li><strong>Basic Chemistry:</strong> The mushroom (<em>Psilocybe cubensis</em>) contains psilocybin, which is converted into psilocin by enzymes present mainly in the small intestine, blood, and liver. It is psilocin that crosses the blood-brain barrier (the selective membrane that protects the central nervous system) and binds to serotonin receptors (specifically 5-HT2A) in your brain.</li>
+                        <li><strong>Ego Shutdown (DMN Inhibition):</strong> The human brain has a network called the <em>Default Mode Network</em> (DMN). It is the "manager" of your mind. It creates your sense of "Self", your worries about the future, rumination over the past, and the repetitive thought patterns that feed depression and anxiety. Psilocin drastically reduces blood flow and activity in the DMN. <strong><em>"The manager leaves the room".</em></strong></li>
+                        <li><strong>Increased Global Connectivity:</strong> With the DMN silenced, areas of the brain that do not normally communicate begin to exchange information (synesthesia, accessing repressed memories under new perspectives).</li>
+                        <li><strong>The Window of Neuroplasticity:</strong> After the session, the brain experiences an increase in the production of BDNF (Brain-Derived Neurotrophic Factor), a protein that acts as "fertilizer" for neurons. For about 14 to 30 days after the experience, your brain becomes more malleable (based on results from pre-clinical studies). It is much easier to break old habits and install new behaviors during this window.</li>
+                    </ul>
+
+                    <p>Institutions like <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins University</a> and <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College London</a> have already demonstrated that this mechanism is highly effective in treating treatment-resistant depression, existential anxiety in terminal patients, and chemical dependency (alcohol and tobacco).</p>
+
+                    <h2>PART 2: Logistics and “Set & Setting”</h2>
+                    <p>Before getting into the dosage protocol, the infrastructure must be flawless. The environment dictates the experience.</p>
+
+                    <ul>
+                        <li><strong>The Tolerance Rule:</strong> This protocol requires an interval of 15 to 30 days between each session. Less than that, chemical tolerance nullifies the effect of the next dose.</li>
+                        <li><strong>Dose Preparation:</strong> To prevent one individual mushroom from being much stronger than another, mix them. You can grind dehydrated mushrooms from the same batch in a blender until they become powder, or simply chop them as finely as possible with clean scissors. Weigh the exact portion for each session.</li>
+                        <li><strong>Body Weight:</strong> The doses in this protocol are general references. Weight can influence the intensity of the experience — a 3g dose may affect a 60kg person differently than a 100kg person. If you are on the extremes (under 60kg or over 90kg), consider adjusting the doses slightly lower or higher within the indicated ranges for each phase.</li>
+                        <li><strong>The Set (Mental State):</strong> In the days prior, avoid bad news, unnecessary stress, and alcohol. Define a clear intention (e.g., "I want to understand the root of my anxiety" instead of just "I want to see what happens").</li>
+                        <li><strong>The Setting (Environment):</strong> A safe, comfortable place where you will not be interrupted for at least 6 hours. The more familiar, the better. Put your phone in airplane mode.</li>
+                        <li><strong>Accessories:</strong> Eye mask (essential), comfortable headphones, and a blanket or duvet (the body feels very cold during the chemical takeoff).</li>
+                        <li><strong>Music:</strong> Music can carry the experience. A suggestion is to use instrumental clinical playlists (search for <a href="https://open.spotify.com/playlist/7aVExA8Lb72NFNbRBZfJLJ?si=AuSdtFc7TmKnGUWV4vKLOA" target="_blank" rel="noopener noreferrer">Johns Hopkins Psilocybin Playlist on Spotify</a>). However, listening to music is not mandatory and, if you feel like it at any point, you can turn it off.</li>
+                        <li><strong>The Most Important Thing:</strong> Be comfortable and follow your instincts, but without deviating from the inner focus (keep the eye mask on whenever possible).</li>
+                    </ul>
+
+                    <h3>Forms of Ingestion</h3>
+                    <p>The mushroom's cell wall is made of chitin, a hard fiber that the stomach has some difficulty breaking down. In some people, this can cause mild discomfort or nausea in the early stages of the experience, although many people feel absolutely no nausea. Since chewing dry mushrooms has an earthy taste that not everyone tolerates, you can use one of these practical methods to ease ingestion and minimize any chance of discomfort:</p>
+
+                    <ol>
+                        <li><strong>Lemon Tek (Citric Acid):</strong> Place the chopped or powdered mushroom in a cup and cover it with freshly squeezed pure lemon juice. Let it sit for 15 to 20 minutes (stirring occasionally). The citric acid "pre-digests" the chitin. After the time is up, add a little water and drink it all at once (liquid and mushrooms). <strong>Advantage:</strong> Greatly reduces the chance of potential nausea and accelerates the onset.</li>
+                        <li><strong>Ginger Tea:</strong> Boil water, turn off the heat and wait 1 minute (boiling water destroys the active substance). Add the chopped/powdered mushroom and a few slices of fresh ginger. Let it steep for 15 minutes. Strain the liquid and throw the mushroom mass away, drinking only the tea. <strong>Advantage:</strong> The psilocybin will extract into the water, ginger is a natural antiemetic (cuts potential nausea), and the strong flavor masks the mushroom taste.</li>
+                        <li><strong>Light Foods (Yogurt or Banana):</strong> Mix the chopped mushroom with something pasty that you like, such as plain yogurt or peanut butter, or put it inside a piece of banana. This completely masks the texture and taste. <strong>Warning:</strong> Avoid mixing with pure cow's milk or heavy/greasy foods, as slow digestion can cause lethargy and physical discomfort.</li>
+                    </ol>
+
+                    <h2>PART 3: The Session Timeline <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(What to expect)</span></h2>
+                    <p>Psilocybin has a predictable biological clock. Knowing this map of time prevents you from panicking, thinking the experience "will never end" or that a strange sensation is a sign that something went wrong.</p>
+                    
+                    <blockquote>
+                        <p><strong>Attention:</strong> The intensity of each stage below depends on the dose. In Phase 1 (1g), you will only feel the takeoff and a light plateau, without losing touch with reality. The map below describes the complete and deep journey of a Macrodose (Phase 3).</p>
+                    </blockquote>
+
+                    <!-- Visual Timeline -->
+                    <div class="relative mt-8 ml-4 md:ml-6 space-y-10 pb-2">
+                        <div class="absolute w-0.5 bg-gray-200 left-[-1.5px] top-3 bottom-0 z-0"></div>
+
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minute 0 to 40: The Wait (Anticipatory Anxiety)</strong><br>
+                            <strong>What you feel:</strong> Your body is breaking down the substance. You may start yawning a lot, feel cold or hot, your hands may sweat, and it's very common to feel mild nausea in the stomach. Anxiety will hit because you know the effect is about to begin.<br>
+                            <strong>Your task:</strong> Step away from phone screens. Focus on breathing. Remember that the initial discomfort is just your body processing the chemistry. It will pass.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-yellow-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minute 40 to 90: Takeoff (The Friction Zone)</strong><br>
+                            <strong>What you feel:</strong> The substance reaches the brain. The perception of the environment changes and your survival instinct (the ego) will try to fight against this loss of control. This is where fear or the urge to "make it stop" usually appears. Your chest may feel tight.<br>
+                            <strong>Your task:</strong> Put on your eye mask, lie down, adjust your headphones, and do not fight. Surrender to the discomfort. It passes quickly if you stop resisting.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-indigo-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>1h30 to 3 hours: The Peak (Immersion)</strong><br>
+                            <strong>What you feel:</strong> The deep dive. Your sense of time will completely disappear (1 minute can feel like 1 hour). This is where immersive closed-eye visions, healing tears, access to memories, or a sense of absolute peace occur.<br>
+                            <strong>Your task:</strong> Keep your eyes closed. Just observe what the mind shows you and let it happen.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>3 to 5 hours: The Waves (The Return)</strong><br>
+                            <strong>What you feel:</strong> The effect begins to subside, but it doesn't vanish all at once; it comes in "waves". You take off the mask, feel completely sober and normal, and 10 minutes later perception distorts again and you return to the trip.<br>
+                            <strong>Your task:</strong> Don't think it ended too early, nor get scared by the return of the effects. Drink water and welcome the waves.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 bg-white z-10">
+                            <div class="absolute w-2 bg-white left-[-4px] top-6 bottom-[-50px] z-0"></div>
+                            <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content z-10"></div>
+                            <strong>5 to 6+ hours: Landing (Afterglow)</strong><br>
+                            <strong>What you feel:</strong> Visual alterations cease completely. You will feel physically exhausted, as if you ran a mental marathon, but you will likely feel immense peace and clarity.<br>
+                            <strong>Your task:</strong> Eat something light (fruit), rest, and begin your integration process.
+                        </div>
+                    </div>
+
+                    <!-- STAIRS IMAGE -->
+                    <div class="my-12 w-full h-48 md:h-72 rounded-2xl overflow-hidden shadow-sm border border-gray-100 not-prose bg-gray-200">
+                        <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Concrete stairs - 3 phase method" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </div>
+
+                    <h2>PART 4: “Protocol 1, 2, 3”</h2>
+                    <p>This protocol was designed to bypass the ego's "fight or flight" biological mechanism. "We approach the door" gradually so that the mind surrenders voluntarily in the final phase.</p>
+                    <p>Before advancing from one phase to the next, run this check: was the previous experience emotionally processed? Can you look at it without significant residual anxiety? If the answer is no, repeat the same dose in the next session before scaling up. The protocol is a suggested progression, not an obligation. Going slowly is always the smartest choice.</p>
+
+                    <h3>Phase 1 - Dose: 1g to 1.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(Proof of Concept)</span></h3>
+                    <ul>
+                        <li><strong>Objective:</strong> Break the stigma and fear of the substance. Map the physiological terrain.</li>
+                        <li><strong>The Experience:</strong> You will not lose control of who you are. The effects will be primarily physical (yawning, some laughter, feeling cold/hot, perhaps mild nausea) and a soft alteration in the perception of colors and music.</li>
+                        <li><strong>Your role:</strong> Focus solely on relaxing the body. Understand that if your stomach gets upset, it is normal and will pass. Success here is ending the session thinking: "Ok, that wasn't as scary as I was told".</li>
+                    </ul>
+
+                    <h3>Phase 2 - Dose: 2g to 2.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(The Shallow Dive and Navigation)</span></h3>
+                    <ul>
+                        <li><strong>Interval:</strong> at least 15 days after Phase 1.</li>
+                        <li><strong>Objective:</strong> Begin accessing subconscious emotional content while still maintaining an anchor to reality.</li>
+                        <li><strong>The Experience:</strong> Visible geometric patterns with eyes closed. Emotions (crying, laughter) may arise out of nowhere. The sense of time begins to distort. If you take off the mask, you still recognize the room, but reality is already quite altered.</li>
+                        <li><strong>Your role:</strong> Practice the technique of "non-resistance". If a difficult emotion arises, the command is not to try to stop it, but rather to investigate. Ask yourself: "What is this trying to show me?".</li>
+                    </ul>
+
+                    <h3>Phase 3 - Dose: 3g to 3.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(The Macrodose and Dissolution)</span></h3>
+                    <ul>
+                        <li><strong>Interval:</strong> at least 15 days after Phase 2.</li>
+                        <li><strong>Objective:</strong> DMN shutdown, ego dissolution experience for deep restructuring.</li>
+                        <li><strong>Specific Preparation:</strong> This phase requires more careful preparation than the previous ones. In the 3 days before the session, reduce intense stimuli — social media, news, alcohol, and emotionally draining conversations. Write your intention on paper, don't just think about it. If you have a trusted person (even if they are not present at the session), let them know you will be doing the experience that day. Knowing that someone knows where you are creates a real psychological anchor of safety.</li>
+                        <li><strong>The Experience:</strong> Immersion is total. Emotionally overwhelming. At certain points, you may forget you took a substance or have the sensation of dying or being reborn. It is in this type of deep experience that many participants report some of their most significant psychological insights.</li>
+                    </ul>
+                    
+                    <blockquote>
+                        <p><strong>Good to know:</strong> research from <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins University</a> shows that the most difficult experiences — the ones that seem unbearable in the moment — frequently generate the greatest therapeutic benefits months later. A challenging experience is not a sign that something went wrong. It is almost always a sign that something very important is being processed.</p>
+                    </blockquote>
+                    
+                    <ul>
+                        <li><strong>Your role:</strong> Absolute surrender. The only rule in this phase is: "Whatever appears, look at it and keep moving forward". Trust the substance. Trust that your body is safe lying in bed.</li>
+                    </ul>
+                    
+                    <blockquote>
+                        <p><strong>Note:</strong> An important clarification about so-called "ego dissolution". In some people, doses in the 3g to 3.5g range can already produce a significant reduction in the habitual sense of identity — moments when the mental narrative of "who I am" temporarily weakens and experience is perceived with fewer cognitive filters. However, more complete states of dissolution are most frequently associated with higher doses, traditionally closer to 5g of dried mushrooms. Even so, modern clinical studies indicate that the therapeutic benefits of psilocybin do not necessarily depend on a total dissolution of the ego. Lasting changes in mood, perspective, and behavior often arise simply from emotionally significant experiences, deep psychological insights, and increased cognitive flexibility during the session.</p>
+                    </blockquote>
+
+                    <h2>PART 5: Integration Engineering <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(Post-Session Tactical Execution)</span></h2>
+                    
+                    <p>The experience shows the door; integration is you walking through it in daily life. Without it, the session was just "recreational tourism".</p>
+
+                    <h3>1. Landing <br><span class="text-lg text-gray-500 font-medium block mt-1">(24h to 48h post-session)</span></h3>
+                    <ul>
+                        <li>The brain is fatigued. Eat well, sleep, drink plenty of water.</li>
+                        <li><strong>Golden Rule:</strong> No drastic decisions. Do not quit your job, do not end your marriage, and do not send impulsive messages based on the trip's "epiphanies". Let the dust settle for at least a week.</li>
+                        <li><strong>Data Recording:</strong> Record a long audio on your phone just "venting" everything you remember from the experience. Don't try to organize it yet, just record it. Memories fade fast, like a dream.</li>
+                    </ul>
+
+                    <h3>2. Unpacking <br><span class="text-lg text-gray-500 font-medium block mt-1">(Week 1 and 2)</span></h3>
+                    <p>Sit down with a notebook (or your facilitator) and translate the experience. Use questions like these:</p>
+                    <ul>
+                        <li><em>What was the most uncomfortable feeling of the experience? What does it look like in your real life?</em></li>
+                        <li><em>Did the substance show you any lies you have been telling yourself lately?</em></li>
+                        <li><em>What did the experience ask you to release (let go of)?</em></li>
+                        <li><em>If the experience had a central theme or a single sentence of advice, what would it be?</em></li>
+                    </ul>
+
+                    <h3>3. Action Plan and Success Metrics <br><span class="text-lg text-gray-500 font-medium block mt-1">(Choosing Focus)</span></h3>
+                    <p>Use the neuroplasticity window to force behavioral change. Choose one of the metrics below to focus on for the next month:</p>
+                    
+                    <ul>
+                        <li><strong>Option A: Tracking Micro-Habits (Ideal for depressive symptoms/procrastination):</strong><br>
+                        Take the biggest insight from the trip and turn it into an action that takes just a few minutes.<br>
+                        <em>Insight:</em> "Nature heals me, technology makes me sick." -> <em>Action:</em> "I will stand in the sun for 10 minutes without my phone right after waking up." Track this on a calendar.</li>
+                        
+                        <li><strong>Option B: Trigger Journal (Ideal for anxiety/addiction):</strong><br>
+                        The substance showed you your triggers. When the urge to smoke/drink or the anxiety attack comes in the following weeks, write down: Day, Time, and exactly what feeling arose 5 minutes before the urge appeared. You will begin to see the pattern that psilocybin pointed out.</li>
+                        
+                        <li><strong>Option C: Simple Mood Scale (Overview):</strong><br>
+                        Every night, give a score from 1 to 10 for three things: Anxiety Level, Sleep Quality, and Feeling of Connection with others. After 30 days, compare the average with before the therapy.</li>
+                    </ul>
+
+                    <h2>CONCLUSION</h2>
+                    <p>Psilocybin is quite possibly one of the most potent tools in modern psychiatry for dismantling problematic mental narratives. However, the 3-phase protocol and the effort of integration serve to remind us of an undeniable truth: <strong>the mushroom performs the surgery, but the physical therapy is entirely your responsibility.</strong> Respect the substance, respect the intervals, and use the hard work of integration to solidify the version of yourself you found in there.</p>
+
+                    <h3>Scientific Foundation and Clinical Evidence</h3>
+                    <p>Over the last two decades, scientific interest in psilocybin has grown significantly within psychiatry and neuroscience. Research conducted by institutions such as the <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins Center for Psychedelic and Consciousness Research</a> and the <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College Centre for Psychedelic Research</a> has investigated the therapeutic potential of the substance in controlled clinical settings.</p>
+                    <p>Clinical trials conducted at these institutions observed relevant and lasting reductions in symptoms of treatment-resistant depression, anxiety associated with life-threatening illnesses, and certain types of chemical dependency. In many participants, a single session with psilocybin, when combined with adequate psychological preparation and subsequent integration, produced noticeable changes in mood, relationship with negative thoughts, and how difficult emotional experiences are processed.</p>
+                    <p>Another consistent finding in these studies is that the subjective intensity of the experience — especially when accompanied by feelings of personal meaning or expanded self-perception — tends to correlate with longer-lasting therapeutic outcomes. This suggests that part of psilocybin's effect is less related to an isolated pharmacological mechanism and more to the type of psychological experience it enables when it occurs in a safe and structured context.</p>
+                    <p>For this reason, in current clinical protocols, the substance is treated as a catalyst for a therapeutic process, not as an isolated treatment. Psychological preparation, support during the experience, and structured integration in the following weeks are considered essential components to transform the experience into lasting psychological change.</p>
+
+                    <h3>Limitations of Current Knowledge</h3>
+                    <p>Despite promising results, scientific research on psilocybin is still expanding, and several questions remain under investigation. The majority of clinical studies conducted so far involve relatively small samples of participants and occur in highly controlled environments, with rigorous psychological screening and specialized professional follow-up.</p>
+                    <p>This means that the results observed in these contexts do not automatically translate to all types of use or all user profiles. Factors such as psychological history, life context, the environment of the experience, and the quality of the integration process can deeply influence perceived effects.</p>
+                    <p>Furthermore, there is still no definitive scientific consensus on aspects such as optimal session frequency, most effective therapeutic dosages for different conditions, or the exact duration of the neurobiological changes associated with the psychedelic experience.</p>
+                    <p>For these reasons, current scientific literature treats psilocybin as a promising tool under investigation — not as a universal solution. Responsible use requires respect for the substance's potency, attention to contraindications, and an understanding that the therapeutic value of the experience depends largely on the psychological work done before and after the session.</p>
+
+                </article>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- TAB 2: FACILITATOR GUIDE                       -->
+            <!-- ============================================== -->
+            <div id="tab-facilitador" style="display: none;" role="tabpanel">
+                
+                <!-- HERO IMAGE FACILITADOR -->
+                <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                    <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Macro representation of an illuminated neural network" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                </div>
+
+                <header class="mb-12 border-b pb-8">
+                    <h2 class="text-3xl md:text-4xl font-black text-chumbo tracking-tight leading-tight mb-2">
+                        Facilitator's Manual
+                    </h2>
+                    <span class="text-xl md:text-2xl text-gray-500 font-medium block mt-2">
+                        Support and Integration Guide for <strong class="text-verde-clinico font-bold tracking-tight">“Protocol 1, 2, 3”</strong>
+                    </span>
+                </header>
+
+                <article class="prose prose-lg max-w-none text-gray-800">
+                    
+                    <p><strong>Introduction: The Weight of the Position</strong><br>
+                    This manual was designed for you who have assumed the responsibility of being someone's support during the Escalating Protocol (1g, 2g, 3g) with psilocybin. Do not underestimate the emotional toll of this task. The process of expanding someone else's consciousness can be dense, confusing, and unpredictable. Your primary role is to ensure they traverse this window of vulnerability psychologically safe and with practical tools to apply in real life. Read this guide with the sobriety of someone preparing to be the safety net in a parachute jump.</p>
+
+                    <p><strong>The Reality of Your Role as an Anchor</strong><br>
+                    Your role is not to be a spiritual guide, a shaman, or an improvised psychologist. Your role is to be the solid ground to which the person can return. During the process, their mind will try to flee from difficult emotions; your job is to offer stability so they do not retreat. Your level of action will depend on how you structured this partnership:</p>
+
+                    <ul>
+                        <li><strong>Scenario 1: Remote Support:</strong> You are the control tower. You focus on preparation and integration. During the session, you are the rescue team. You respect their solitary dive, but keep your phone in hand with the volume up.</li>
+                        <li><strong>Scenario 2: Physical Presence:</strong> You are the guardian of the space. You manage environmental safety (light, sound, temperature). You do not "guide" the trip; you are the safety anchor who sits in silence.</li>
+                    </ul>
+
+                    <h3>The 5 Golden Rules of the Facilitator</h3>
+                    <p>Before executing any technique, your behavior must be governed by these non-negotiable principles:</p>
+                    
+                    <ul>
+                        <li><strong>Safety is the only priority:</strong> You are not there to interpret visions or heal anyone, only to ensure the person's physical and mental integrity.</li>
+                        <li><strong>The trip is theirs, not yours:</strong> Never impose meanings, do not interrupt the process, and do not project your fears onto the other's experience.</li>
+                        <li><strong>Silence is your best tool:</strong> Most of the time, the best action is to be a calm and quiet physical (or remote) presence. Less intervention is always better.</li>
+                        <li><strong>Fear is not an error:</strong> Pain, crying, and panic do not mean the session went wrong; they are usually the exact trauma that needed to be accessed.</li>
+                        <li><strong>Healing happens in integration:</strong> Psilocybin only shows the door. If there is no change in attitude in the following week, the effort was useless.</li>
+                    </ul>
+
+                    <h2>1. Pre-Flight Checklist (Mandatory)</h2>
+                    <p>Before the person ingests the substance, you (in person or requiring confirmation remotely) must review this list. Lack of environmental preparation is the main cause of panic attacks.</p>
+
+                    <strong>Environment and Infrastructure:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Is the space absolutely safe, comfortable, and private for the next 6 hours?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Can lighting be controlled quickly (lamps, curtains)?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Are water, a bathroom, and a bucket (in case of strong nausea) easily accessible?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Are the eye mask, headphones, and blanket/duvet (for the cold of takeoff) ready?</li>
+                    </ul>
+
+                    <strong>Communication and External Shielding:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Is the person's phone in airplane mode or are notifications blocked? (Exception only for talking to you in Scenario 1).</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Have you aligned that they have no social, family, or work commitments for the rest of the day?</li>
+                    </ul>
+
+                    <strong>Physical State and Intention:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Has the person had a very light meal or fasted for 2 to 3 hours?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Have they avoided alcohol and other substances in the last 24 hours?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Was the intention for the session (the "why we are doing this") verbalized clearly?</li>
+                    </ul>
+
+                    <h2>2. The Chemical Clock <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(The Session Timeline)</span></h2>
+                    <p>To anchor someone, you need to know what phase of chemical absorption the person is in. Psilocybin has a predictable cycle. If you know the clock, you won't be caught by surprise.</p>
+
+                    <!-- Timeline Visual Facilitador -->
+                    <div class="relative mt-8 ml-4 md:ml-6 space-y-10 pb-2">
+                        <div class="absolute w-0.5 bg-gray-200 left-[-1.5px] top-3 bottom-0 z-0"></div>
+
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minute 0 to 40: The Wait and Anticipatory Anxiety</strong><br>
+                            <strong>What happens:</strong> The body is converting psilocybin to psilocin. The person feels cold, yawns a lot, and may have nausea. Anxiety spikes.<br>
+                            <strong>[In-Person Support]:</strong> Ensure the checklist was met. Encourage deep breathing.<br>
+                            <strong>[Remote Support]:</strong> Send a message: "The substance is in your stomach. Turn everything off and let me know when you put the mask on to lie down."
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-yellow-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minute 40 to 90: Takeoff (The Critical Point)</strong><br>
+                            <strong>What happens:</strong> Psilocin reaches the brain. This is where the vast majority of crises occur. The "flight" alarm goes off and the ego tries to fight shutting down.<br>
+                            <strong>[In-Person Support]:</strong> Instruct them to put on the mask and headphones. Say: "The discomfort is your body resisting. Lie down and surrender."<br>
+                            <strong>[Remote Support]:</strong> Do not initiate contact. If they send a message saying they are scared, send a firm audio: "This is takeoff. Get off your phone, put on the mask and breathe. Let it come."
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-indigo-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>1h30 to 3 hours: The Chemical Peak (Immersion)</strong><br>
+                            <strong>What happens:</strong> The Default Mode Network (DMN) reaches maximum shutdown. The person is at the peak of the experience (ego dissolution, accessing deep pains).<br>
+                            <strong>[In-Person Support]:</strong> Allow the experience to unfold. Do not ask if they are okay, do not offer water unless asked. Intervene only in acute panic.<br>
+                            <strong>[Remote Support]:</strong> Your phone must remain silent. They need to be disconnected from the external world.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>3 to 5 hours: The Plateau and Return (The Waves)</strong><br>
+                            <strong>What happens:</strong> The liver begins to clear the substance. The effect comes in "waves": the person seems sober, and 5 minutes later perception distorts again.<br>
+                            <strong>[In-Person Support]:</strong> Be receptive. If they want to talk, listen. If they want to cry, let them. Offer water.<br>
+                            <strong>[Remote Support]:</strong> They will likely make first contact here. Welcome them, but instruct them to remain lying down with eyes closed until the wave passes entirely.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 bg-white z-10">
+                            <div class="absolute w-2 bg-white left-[-4px] top-6 bottom-[-50px] z-0"></div>
+                            <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content z-10"></div>
+                            <strong>5 to 6+ hours: Landing (Afterglow)</strong><br>
+                            <strong>What happens:</strong> The visual effect ends. Physical exhaustion accompanied by mental euphoria.<br>
+                            <strong>[In-Person/Remote Support]:</strong> Encourage them to eat something light (fruits) to restore glucose.
+                        </div>
+                    </div>
+
+                    <!-- STAIRS IMAGE -->
+                    <div class="my-12 w-full h-48 md:h-80 rounded-xl overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                        <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Concrete stairs - 3 phase method" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </div>
+
+                    <h2>3. Practical Phase Management <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(The Approach in Each Dose)</span></h2>
+                    <p>Psilocybin does the work; you just secure the perimeter.</p>
+
+                    <h3>Phase 1 - 1g to 1.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(Breaking the Stigma)</span></h3>
+                    <ul>
+                        <li><strong>The expected scenario:</strong> The person will not lose consciousness of reality. They will feel the physical effects of "Takeoff", but won't reach a deep dive.</li>
+                        <li><strong>What to do [In-Person & Remote]:</strong> Validate the physical sensations. "The nausea is just your stomach processing the mushroom. It passes quickly."</li>
+                        <li><strong>The Fatal Error:</strong> Do not create mystical expectations. If the person says "I think it hit weak", do not suggest they take more (redose). Say: "The goal today is to prove the substance is safe. The deep dive is for next time."</li>
+                    </ul>
+
+                    <h3>Phase 2 - 2g to 2.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(Non-Resistance Training)</span></h3>
+                    <ul>
+                        <li><strong>The expected scenario:</strong> Emotional content emerges. Crying, time distortion, visual patterns.</li>
+                        <li><strong>What to do [In-Person]:</strong> If they show physical distress, offer your hand in silence or say calmly: "Breathe through this."</li>
+                        <li><strong>What to do [Remote]:</strong> Remind them before the session: "If you feel like crying, don't swallow the tears. Try to resolve it first with breathing."</li>
+                        <li><strong>The Fatal Error:</strong> If the person starts crying, do not try to console them. Crying frequently indicates deep emotional release. Consoling is repressing the process. Let them empty out.</li>
+                    </ul>
+
+                    <h3>Phase 3 - 3g to 3.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(Ego Dissolution)</span></h3>
+                    <ul>
+                        <li><strong>The expected scenario:</strong> Total loss of executive control during the "peak". There may be profound disorientation and confrontation with internal fears.</li>
+                        <li><strong>What to do [In-Person]:</strong> Keep the environment safe and silent. Remind them: "Look directly at whatever appears."</li>
+                        <li><strong>What to do [Remote]:</strong> Pre-session alignment: "Face the fear. Only call me if you feel you have completely lost control over your physical safety."</li>
+                        <li><strong>The Fatal Error:</strong> Avoid analytical conversations. If the person takes off the mask confused and tries to explain what they are experiencing, listen briefly, but do not engage in chatter. "Save it for later. Put the mask on and go back inside."</li>
+                    </ul>
+
+                    <h2>4. Crisis Management - The S.O.S. Protocol</h2>
+                    <p>Acute panic happens when the person's ego fights the experience. Take control.</p>
+
+                    <ul>
+                        <li><strong>Breaking the Mental Loop (Geometry and Light):</strong><br>
+                        <strong>The Tactic:</strong> Force a physical change of the environment to break the brain's spiral.<br>
+                        <strong>[In-Person Support]:</strong> Turn on the lamp light. Take off their headphones. Hold their hand and ask them to sit up in bed.<br>
+                        <strong>[Remote Support]:</strong> Command on the call: "Lift your torso. Turn on the bedroom light. Take off the headphones and put me on speaker. Tell me when you've done that."</li>
+                        
+                        <li><strong>Assume Direct and Calm Command:</strong><br>
+                        <strong>The Tactic:</strong> Speak with clarity and a directive voice. Their executive capacity is offline.<br>
+                        <strong>[In-Person and Remote]:</strong> "John, listen to my voice. It's me, [Your Name]. You are under the effect of a mushroom. You are perfectly safe."<br>
+                        <strong>The Fatal Error:</strong> Do not ask "What are you seeing?". Trying to explain the delirium will worsen the panic.</li>
+
+                        <li><strong>Extreme Physiological Anchoring:</strong><br>
+                        <strong>The Tactic:</strong> Shift focus to the dense physical body.<br>
+                        <strong>[In-Person Support]:</strong> Hold their shoulders. "Feel my hand. Feel the floor with your feet."<br>
+                        <strong>[Remote Support]:</strong> "Squeeze your leg with your right hand now. Flex your fingers. Feel the texture of the bed."</li>
+
+                        <li><strong>The Rule of Passing Time:</strong><br>
+                        <strong>The Tactic:</strong> Panic distorts time. Bring in chemical logic.<br>
+                        <strong>[In-Person and Remote]:</strong> "You took the dose 2 hours ago. The chemical peak has passed. Your liver is clearing the substance. Breathe with me." (Guide the breathing: 4s inhale, 6s exhale).</li>
+                    </ul>
+
+                    <h3>The Red Line <br><span class="text-lg text-gray-500 font-medium block mt-1">(When to call medical help)</span></h3>
+                    <p>Frightening experiences are normal. Medical emergencies are extremely uncommon, but possible. Break protocol and seek a hospital immediately if the person presents:</p>
+                    <ul>
+                        <li>Severe and continuous chest pain or radiation to the left arm (potential cardiac crisis due to increased blood pressure).</li>
+                        <li>Severe difficulty breathing (not to be confused with anxious panting) or fainting/total loss of consciousness.</li>
+                        <li>Disorganized behavior with a real and imminent risk of violence towards oneself or others (e.g., attempting to jump out a window, extreme physical aggression that does not yield to loop-breaking or anchoring).</li>
+                    </ul>
+
+                    <h2>5. The Integration Process <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(Post-Session Tactical Execution)</span></h2>
+                    <p>Neuroplasticity is activated for up to 30 days. The <strong>Golden Rule of Non-Induction</strong> governs this phase: You never give the answer, you only ask the question.</p>
+
+                    <h3>A. Landing <br><span class="text-lg text-gray-500 font-medium block mt-1">(24h to 48h)</span></h3>
+                    <p><strong>The Action Block:</strong> The person may wake up euphoric, wanting to make drastic decisions. Do not allow structural decisions for 14 days. Demand that they record an audio detailing everything to you before the memory dissipates.</p>
+
+                    <h3>B. Unpacking <br><span class="text-lg text-gray-500 font-medium block mt-1">(Translation and Somatic Map)</span></h3>
+                    <p>Guide conversations focused on bringing the visions into reality.</p>
+
+                    <p><strong>1. Translation of Metaphors:</strong><br>
+                    <strong>The person says:</strong> "I saw a giant monster crushing me and I couldn't breathe."<br>
+                    <strong>The Fatal Error:</strong> "That's an evil spirit" or "That's your authoritarian father." (False diagnosis).<br>
+                    <strong>The correct tactic:</strong> "Psilocybin projects fears into images. What situation in your real life today makes you feel crushed and out of breath?"</p>
+
+                    <p><strong>2. The Somatic Map (Understanding the Body):</strong><br>
+                    The map below is a directing tool, not a diagnosis. Unprocessed tensions manifest as aches or coldness in the body during the trip. Use the questions to help the person connect the symptom to real life, but demand they reach the conclusion themselves.</p>
+                    
+                    <ul>
+                        <li><strong>Head / Forehead:</strong> Excessive mental control. Question: "Have you felt the need to obsessively control your life lately?"</li>
+                        <li><strong>Throat / Jaw:</strong> Unspoken truths, repressed anger. Question: "In what situations did you want to say something important, but swallowed hard and stayed silent?"</li>
+                        <li><strong>Chest / Heart:</strong> Emotional grief, repressed sadness. Question: "Is there any recent pain or loss that you pushed down so you could keep working?"</li>
+                        <li><strong>Stomach / Abdomen:</strong> Fear of basic survival. Question: "Does your stomach usually lock up like this when you feel threatened financially or at work?"</li>
+                        <li><strong>Sexual Organs / Pelvis:</strong> The pelvis is the vault of vital energy, shame, and intimacy.<br>
+                        <strong>The Fatal Error:</strong> NEVER suggest trauma or sexual abuse. Do not create false memories.<br>
+                        <strong>Safe Question:</strong> "The pelvic region holds our intimacy. Is there any part of who you are that you hide or are ashamed to show your partners?"</li>
+                    </ul>
+
+                    <h3>C. Execution and Tracking <br><span class="text-lg text-gray-500 font-medium block mt-1">(Weeks 2 to 6)</span></h3>
+                    <p>Deep insights need to turn into behavior, otherwise they are just "recreational tourism".</p>
+                    <ul>
+                        <li><strong>The Micro-Action Principle:</strong> Help the person distill the Phase 3 perception into a practical action of a few minutes. You do not define the rule, you ask the question: "What small action of a few minutes can you take tomorrow morning to break that automatic behavior?" When they answer (ex: breathe before grabbing the phone), seal the agreement: "Excellent. Can I hold you accountable for that tomorrow?"</li>
+                        <li><strong>Follow-up:</strong> Send messages holding them accountable to the execution they defined. If they fail, remind them of the exact insight from the dose.</li>
+                    </ul>
+
+                    <h2>6. Scientific Foundation <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(Why this manual works)</span></h2>
+                    <p>These guidelines reflect principles used in modern research. If the person questions the process, here is the data:</p>
+                    <ul>
+                        <li><strong>DMN Shutdown:</strong> Research from <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College London</a> (fMRI) indicates that psilocybin reduces blood flow in the Default Mode Network, a network associated with depressive rumination. Avoiding analytical conversations in Phase 3 is vital to allow the mind to remain introspective and the DMN shut down.</li>
+                        <li><strong>The Mystical Experience:</strong> Studies from the <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins Center</a> demonstrated that the degree of success in psychological treatment correlates with experiences of ego dissolution. Difficult or frightening experiences often generate great results, which is why the "face the fear" rule is central.</li>
+                        <li><strong>Neuroplasticity and BDNF:</strong> Psilocybin promotes the temporary growth of neural connections and an increase in BDNF (Brain-Derived Neurotrophic Factor), opening a "window of malleability". Without creating new habits (Integration), the tendency is to return to the old pattern.</li>
+                        <li><strong>The Importance of Set & Setting:</strong> In all major modern peer-reviewed clinical trials, the substance is administered with at least one facilitator present to ensure psychological safety.</li>
+                    </ul>
+
+                    <h2>7. Conclusion: Weaning and Self-Care</h2>
+                    
+                    <h3>Time to Step Back</h3>
+                    <p>At the end of 4 to 6 weeks of integration after the macrodose, you need to step down from the "guardian" position. The goal is to give the person autonomy. If they continue depending on your constant support, the protocol became a crutch. Go back to being just a regular friend.</p>
+
+                    <h3>The Toll on the Facilitator</h3>
+                    <p>Anchoring crises and absorbing trauma accounts requires a lot of energy. Do not normalize this exhaustion. After the cycle ends, take time to disconnect from the process. You offered safe ground when everything seemed to collapse; the rest of the walk is exclusively their responsibility.</p>
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- FULL FOOTER -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-500 text-center space-y-4">
+            <p class="font-bold uppercase tracking-wider text-gray-400">Harm Reduction - Open Source</p>
+            <p>Protocol 1, 2, 3 is strictly informational. No substance is commercialized or encouraged.</p>
+            <p>Contact: <a href="mailto:protocolo123.com@proton.me" onclick="copyEmail(event, 'protocolo123.com@proton.me')" class="text-verde-clinico hover:text-chumbo transition underline font-medium">protocolo123.com@proton.me</a></p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC (Hardened) -->
+    <script>
+        function acceptLegal() {
+            document.getElementById('legalModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function openSOS() {
+            const sosModal = document.getElementById('sosModal');
+            sosModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+            window.scrollTo(0, 0);
+        }
+
+        function closeSOS() {
+            const sosModal = document.getElementById('sosModal');
+            sosModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        // Close S.O.S with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const sosModal = document.getElementById('sosModal');
+                if (sosModal.style.display === 'flex') {
+                    closeSOS();
+                }
+            }
+        });
+
+        // Foolproof Email Copy Function
+        function copyEmail(e, email) {
+            if(navigator.clipboard && window.isSecureContext) {
+                e.preventDefault(); 
+                navigator.clipboard.writeText(email).then(function() {
+                    const link = e.target;
+                    const originalText = link.innerText;
+                    link.innerText = "Copied!";
+                    setTimeout(function() { link.innerText = originalText; }, 2000);
+                });
+            }
+        }
+
+        function switchTab(tabId) {
+            document.getElementById('tab-user').style.display = 'none';
+            document.getElementById('tab-facilitador').style.display = 'none';
+            
+            document.getElementById('btn-gateway-user').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-gateway-facilitador').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-user').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-facilitador').setAttribute('aria-selected', 'false');
+            
+            // Gateway buttons reset
+            document.getElementById('btn-gateway-user').className = 'p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer';
+            document.getElementById('btn-gateway-user').querySelector('p').className = 'text-gray-500 text-xs md:text-sm font-medium';
+            document.getElementById('btn-gateway-facilitador').className = 'p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer';
+            document.getElementById('btn-gateway-facilitador').querySelector('p').className = 'text-gray-500 text-xs md:text-sm font-medium';
+
+            // Top nav buttons reset
+            document.getElementById('btn-user').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none';
+            document.getElementById('btn-facilitador').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none';
+            
+            document.getElementById(tabId).style.display = 'block';
+            
+            if(tabId === 'tab-user') {
+                document.getElementById('btn-gateway-user').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-gateway-user').className = 'p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer';
+                document.getElementById('btn-gateway-user').querySelector('p').className = 'text-gray-300 text-xs md:text-sm font-medium';
+
+                document.getElementById('btn-user').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-user').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none';
+            } else {
+                document.getElementById('btn-gateway-facilitador').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-gateway-facilitador').className = 'p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer';
+                document.getElementById('btn-gateway-facilitador').querySelector('p').className = 'text-gray-300 text-xs md:text-sm font-medium';
+
+                document.getElementById('btn-facilitador').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-facilitador').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none';
+            }
+            
+            // Safe scroll calculation
+            const contentContainer = document.getElementById('conteudo-guias');
+            if (contentContainer) {
+                const contentTop = contentContainer.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: contentTop, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        document.body.classList.add('modal-open');
+    </script>
+</body>
+</html>

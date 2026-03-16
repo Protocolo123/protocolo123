@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Meta Tags SEO & AEO -->
+    <title>Protocolo 1, 2, 3 | Terapia e Autoaplicação Segura com Psilocibina</title>
+    <meta name="description" content="Guia open-source de redução de danos e integração tática para uso terapêutico de psilocibina. Conheça o protocolo escalonado de 3 fases e o mapa somático.">
+    <meta name="keywords" content="psilocibina, redução de danos, terapia psicodélica, protocolo escalonado, bad trip, integração psicodélica, johns hopkins, microdose, macrodose">
+    <meta name="author" content="Coletivo Protocolo 1, 2, 3">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Protocolo 1, 2, 3 | Redução de Danos">
+    <meta property="og:description" content="Guia de código aberto para autoaplicação segura e estruturada de psilocibina.">
+    <meta property="og:url" content="https://protocolo123.com">
+    
+    <!-- Tailwind CSS com plugin de tipografia -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Configuração Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        'chumbo': '#1A1A1A',
+                        'verde-clinico': '#4C7A5D',
+                        'bg-app': '#F4F4F5',
+                    },
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                color: '#374151',
+                                a: { color: '#4C7A5D', '&:hover': { color: '#2f4f3b' } },
+                                h2: { color: '#1A1A1A', borderBottom: '1px solid #e5e7eb', paddingBottom: '0.5rem', marginTop: '3rem' },
+                                h3: { color: '#2d3748', marginTop: '2rem' },
+                                blockquote: { borderLeftColor: '#4C7A5D', backgroundColor: '#f8fafc', padding: '1rem', borderRadius: '0 0.5rem 0.5rem 0', fontStyle: 'normal', color: '#1A1A1A' },
+                                strong: { color: '#1A1A1A' },
+                            },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; background-color: #F4F4F5; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F4F4F5; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        body.modal-open { overflow: hidden; }
+    </style>
+
+    <!-- Script de Redirecionamento Automático (Blindado para Preview/Local) -->
+    <script>
+        try {
+            // Só executa o redirecionamento se estiver em um servidor real (http/https)
+            if (!localStorage.getItem('lang_chosen') && window.location.protocol.startsWith('http')) {
+                var userLang = navigator.language || navigator.userLanguage;
+                // Se o idioma NÃO começar com "pt" (pt-BR, pt-PT), manda pro Inglês
+                if (!userLang.toLowerCase().startsWith('pt')) {
+                    window.location.replace('en.html');
+                }
+            }
+        } catch (e) {
+            console.warn("Redirecionamento bloqueado pelo ambiente de preview.");
+        }
+    </script>
+</head>
+<body class="text-gray-800 font-sans antialiased">
+
+    <!-- MODAL JURÍDICO -->
+    <div id="legalModal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div class="bg-white max-w-3xl w-full p-6 md:p-12 rounded-xl shadow-2xl border-t-8 border-red-700 overflow-y-auto max-h-[90vh]">
+            <h2 class="text-xl md:text-2xl font-black text-chumbo mb-6 uppercase tracking-wide">Aviso de Redução de Danos e Isenção de Responsabilidade</h2>
+            
+            <div class="space-y-5 text-gray-700 leading-relaxed text-sm md:text-base">
+                <p><strong class="text-gray-900">1. NENHUM INCENTIVO:</strong> Este site <strong>NÃO</strong> incentiva, prescreve, fornece ou faz apologia ao uso de psilocibina ou qualquer outra substância ilícita.</p>
+                <p><strong class="text-gray-900">2. REDUÇÃO DE DANOS:</strong> O conteúdo aqui presente é estritamente informativo. Ele é desenhado exclusivamente como uma ferramenta de Redução de Danos para indivíduos que, por sua própria conta, risco e livre arbítrio, <strong>já tomaram a decisão prévia e irrevogável</strong> de consumir a substância.</p>
+                <p><strong class="text-gray-900">3. RISCOS MÉDICOS:</strong> A psilocibina é potente. Pessoas com histórico pessoal ou familiar de esquizofrenia, transtorno bipolar ou psicoses correm risco real de surtos. A substância eleva a pressão arterial e possui interações severas com medicamentos psiquiátricos (ISRSs, IMAOs, Lítio).</p>
+                <p><strong class="text-gray-900">4. ISENÇÃO TOTAL:</strong> Os autores, desenvolvedores e mantenedores deste projeto anônimo e de código aberto <strong>NÃO ASSUMEM NENHUMA RESPONSABILIDADE</strong> civil, criminal ou médica por danos físicos, psicológicos, emocionais ou legais decorrentes da aplicação das informações lidas aqui. A decisão de uso e suas consequências são de inteira responsabilidade do leitor.</p>
+            </div>
+            
+            <button onclick="acceptLegal()" aria-label="Aceitar termos e acessar conteúdo" class="mt-10 w-full bg-chumbo text-white font-bold py-4 rounded-lg hover:bg-black transition shadow-lg text-lg">
+                EU COMPREENDO E ASSUMO TODOS OS RISCOS
+            </button>
+        </div>
+    </div>
+
+    <!-- TELA DE S.O.S (Preto puro, hiper-focada, alto contraste) -->
+    <div id="sosModal" role="dialog" aria-modal="true" class="fixed inset-0 z-[60] bg-black text-white flex-col p-4 sm:p-8 overflow-y-auto" style="display: none;">
+        <div class="max-w-4xl mx-auto w-full pt-4 md:pt-8 pb-16">
+            <button onclick="closeSOS()" aria-label="Voltar para o guia" class="mb-10 text-white font-bold flex items-center transition px-5 py-2.5 rounded-lg w-max bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:border-gray-600 shadow-sm">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Voltar ao Guia
+            </button>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-6 text-white tracking-tighter">
+                <span class="text-red-600">Protocolo S.O.S</span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-12 text-gray-300 border-b border-gray-800 pb-10">
+                As chamadas “bad trips” geralmente são apenas material psicológico reprimido vindo à tona de forma mais forte, misturado com a resistência do ego. Se o pânico bater, siga este protocolo:
+            </p>
+            
+            <div class="space-y-12">
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">1.</span> Mude a Geometria do Corpo e o Ambiente</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 pl-8 sm:pl-10 md:pl-12">Se você estiver em pânico deitado, sente-se. Se estiver no escuro, acenda uma luz fraca. Mude a música para algo calmo, familiar e sem letra. Uma mudança física quebra o loop mental.</p>
+                </div>
+                
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">2.</span> O Mantra da Fisiologia</h2>
+                    <p class="text-xl sm:text-2xl md:text-3xl italic font-medium text-white pl-8 sm:pl-10 md:pl-12 leading-relaxed border-l-4 border-red-600">
+                        "Eu tomei um cogumelo. A dose foi calculada. Meu corpo está seguro, é apenas a minha mente reagindo à química. Isso vai acabar em algumas horas."
+                    </p>
+                </div>
+                
+                <div class="relative">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"><span class="text-red-600 mr-2">3.</span> A Regra do "mergulhe, não fuja"</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 pl-8 sm:pl-10 md:pl-12">Se uma visão assustadora (algo como um "demônio", um trauma negro) aparecer, tentar fugir dela gera ansiedade. Você deve se lembrar: <strong>"Vá em direção à imagem. Pergunte a ela: Por que você está aqui? O que você quer me ensinar?"</strong>. Adotar uma postura de curiosidade costuma reduzir significativamente a resposta de medo.</p>
+                </div>
+                
+                <!-- Bloco de Respiração Ultra Destacado e Responsivo (Grid) -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 md:p-12 mt-16 text-center overflow-hidden">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">4. Respiração Diafragmática (Ancoragem)</h2>
+                    <p class="text-lg sm:text-xl text-gray-400 mb-8 md:mb-10">Mão na barriga. Faça isso por alguns minutos para desativar o sistema nervoso simpático.</p>
+                    
+                    <div class="grid grid-cols-[auto_auto_auto] gap-x-3 md:gap-x-6 gap-y-4 md:gap-y-6 w-fit mx-auto text-left items-center text-base sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-wider md:tracking-widest uppercase">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        <span class="text-gray-300">Inspire</span>
+                        <span class="text-red-500">4 Segundos</span>
+                        
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-yellow-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-gray-300">Segure</span>
+                        <span class="text-yellow-500">4 Segundos</span>
+                        
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="text-gray-300">Solte</span>
+                        <span class="text-blue-500">6 Segundos</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-12 border-t border-gray-800">
+                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-red-500 flex items-center">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        A Linha Vermelha - Quando chamar socorro médico
+                    </h2>
+                    <ul class="list-none space-y-4 text-gray-400 text-base sm:text-lg pl-0 md:pl-11">
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Dor forte e contínua no peito ou irradiação para o braço esquerdo (potencial crise cardíaca pelo aumento da pressão).</li>
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Dificuldade severa para respirar (não confundir com respiração ofegante de ansiedade) ou desmaio/perda de consciência total.</li>
+                        <li class="flex items-start"><span class="text-red-600 mr-3 mt-1">●</span> Comportamento desorganizado com risco real e iminente de violência contra si mesma ou contra você (ex: tentar pular da janela, agressividade física extrema que não cede à quebra de loop ou ancoragem).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÃO FLUTUANTE S.O.S -->
+    <button onclick="openSOS()" aria-label="Abrir protocolo de emergência" class="fixed bottom-6 right-6 z-40 bg-red-600 text-white w-16 h-16 md:w-20 md:h-20 rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)] flex flex-col items-center justify-center border-2 border-white hover:scale-105 transition transform font-black tracking-tighter hover:bg-red-700 group">
+        <span class="text-lg md:text-xl leading-none">S.O.S</span>
+        <span class="text-[9px] md:text-[10px] uppercase mt-1 opacity-90 group-hover:opacity-100">Bad Trip</span>
+    </button>
+
+    <!-- NAVEGAÇÃO SUPERIOR FIXA -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-3 md:h-20 md:py-0">
+                <div class="flex items-center w-full md:w-auto justify-between md:justify-start mb-3 md:mb-0">
+                    <div class="flex items-center">
+                        <svg class="h-6 w-auto sm:h-7 text-chumbo mr-2 sm:mr-3" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 38H40" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M8 24H28" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M8 10H16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="font-black text-xl sm:text-2xl tracking-tighter text-chumbo">PROTOCOLO 1, 2, 3</span>
+                    </div>
+                    <!-- LANGUAGE SWITCHER (MOBILE) -->
+                    <div class="flex md:hidden items-center space-x-3 ml-4 border-l border-gray-200 pl-4">
+                        <span class="text-xs font-black text-chumbo">PT</span>
+                        <span class="text-gray-300 text-xs">|</span>
+                        <a href="en.html" onclick="localStorage.setItem('lang_chosen', 'true')" class="text-xs font-bold text-gray-400 hover:text-chumbo transition">EN</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center w-full md:w-auto">
+                    <nav class="flex items-center space-x-1 sm:space-x-2 w-full md:w-auto justify-center" role="tablist">
+                        <button onclick="switchTab('tab-user')" id="btn-user" role="tab" aria-selected="true" class="px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none">Guia do Usuário</button>
+                        <button onclick="switchTab('tab-facilitador')" id="btn-facilitador" role="tab" aria-selected="false" class="px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none">Guia do Facilitador</button>
+                    </nav>
+                    <!-- LANGUAGE SWITCHER (DESKTOP) -->
+                    <div class="hidden md:flex items-center space-x-3 ml-6 border-l border-gray-200 pl-6">
+                        <span class="text-sm font-black text-chumbo">PT</span>
+                        <span class="text-gray-300">|</span>
+                        <a href="en.html" onclick="localStorage.setItem('lang_chosen', 'true')" class="text-sm font-bold text-gray-400 hover:text-chumbo transition">EN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- TÍTULO MESTRE -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-chumbo tracking-tight leading-tight">
+                Guia Prático de Terapia com Psilocibina
+            </h1>
+        </div>
+
+        <!-- GATEWAY (Escolha do Guia) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10" role="tablist">
+            <button onclick="switchTab('tab-user')" id="btn-gateway-user" role="tab" aria-selected="true" class="p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer">
+                <h2 class="text-xl md:text-2xl font-bold mb-1 md:mb-2">Guia do Usuário</h2>
+                <p class="text-gray-300 text-xs md:text-sm font-medium">Para quem vai passar pela experiência.</p>
+            </button>
+            <button onclick="switchTab('tab-facilitador')" id="btn-gateway-facilitador" role="tab" aria-selected="false" class="p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer">
+                <h2 class="text-xl md:text-2xl font-bold mb-1 md:mb-2">Guia do Facilitador</h2>
+                <p class="text-gray-500 text-xs md:text-sm font-medium">Para quem vai dar o suporte e ancoragem.</p>
+            </button>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-12" id="conteudo-guias">
+            
+            <!-- ============================================== -->
+            <!-- ABA 1: GUIA DO USUÁRIO                         -->
+            <!-- ============================================== -->
+            <div id="tab-user" style="display: block;" role="tabpanel">
+                
+                <!-- Imagem blindada contra falhas (bg-gray-200 e erro oculto) -->
+                <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                    <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Representação macro de uma rede neural iluminada" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                </div>
+
+                <header class="mb-12 border-b pb-8">
+                    <h2 class="text-3xl md:text-4xl font-black text-chumbo tracking-tight leading-tight mb-2">
+                        Manual do Protocolo de Autoaplicação Escalonado ou <strong class="text-verde-clinico font-bold tracking-tight">“Protocolo 1, 2, 3”</strong>
+                    </h2>
+                </header>
+
+                <article class="prose prose-lg max-w-none text-gray-800">
+                    
+                    <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-lg mb-10 text-gray-800 text-base shadow-sm">
+                        <strong class="text-red-700 uppercase tracking-wide text-sm block mb-2">Aviso de Redução de Danos:</strong>
+                        <p class="mt-0">Este manual tem fins educativos e de redução de danos. A psilocibina é uma substância potente. A autoaplicação, especialmente em doses altas (Fase 3), envolve riscos psicológicos. Pessoas com histórico pessoal ou familiar de esquizofrenia, transtorno bipolar ou psicoses não devem utilizar psicodélicos.</p>
+                        <p>Pessoas com histórico de problemas cardiovasculares — hipertensão não controlada, arritmias ou doenças cardíacas — também devem evitar o uso sem acompanhamento médico. A psilocibina causa aumento temporário da pressão arterial e da frequência cardíaca durante a experiência.</p>
+                        <p class="mb-0">A mistura com medicamentos psiquiátricos exige atenção redobrada por dois motivos distintos: ISRSs tendem a reduzir ou anular completamente os efeitos da psilocibina (por um mecanismo de <em>downregulation</em> dos receptores 5-HT2A); já IMAOs e Lítio podem causar interações graves e potencialmente perigosas. Consulte um profissional antes de qualquer uso combinado.</p>
+                    </div>
+
+                    <h2>PARTE 1: Fundamentação - O que acontece no cérebro?</h2>
+                    <p>Para extrair resultados reais, você precisa abandonar a ideia mística e entender a máquina. A psilocibina não é uma "cura mágica", ela é um catalisador químico que cria uma janela de oportunidade neurológica.</p>
+
+                    <ul>
+                        <li><strong>A Química Básica:</strong> O cogumelo (<em>Psilocybe cubensis</em>) contém psilocibina, que é convertida em psilocina por enzimas presentes principalmente no intestino delgado, no sangue e no fígado. É a psilocina que atravessa a barreira hematoencefálica (a membrana seletiva que protege o sistema nervoso central) e se liga aos receptores de serotonina (especificamente o 5-HT2A) no seu cérebro.</li>
+                        <li><strong>O Desligamento do Ego (Inibição da DMN):</strong> O cérebro humano possui uma rede chamada <em>Default Mode Network</em> (Rede de Modo Padrão - DMN). Ela é o "gerente" da sua mente. É ela que cria o seu senso de "Eu", suas preocupações com o futuro, a ruminação sobre o passado e os padrões repetitivos de pensamento que alimentam depressão e ansiedade. A psilocina reduz drasticamente o fluxo de sangue e a atividade na DMN. <strong><em>“O gerente sai da sala”.</em></strong></li>
+                        <li><strong>Aumento da Conectividade Global:</strong> Com a DMN silenciada, áreas do cérebro que normalmente não se comunicam começam a trocar informações (sinestesia, acesso a memórias reprimidas sob novas perspectivas).</li>
+                        <li><strong>A Janela de Neuroplasticidade:</strong> Após a sessão, o cérebro experimenta um aumento na produção de BDNF (Fator Neurotrófico Derivado do Cérebro), uma proteína que age como um "fertilizante" para os neurônios. Por cerca de 14 a 30 dias após a experiência, seu cérebro fica mais maleável (baseado no resultado de estudos pré-clínicos). É muito mais fácil quebrar velhos hábitos e instalar novos comportamentos nessa janela.</li>
+                    </ul>
+
+                    <p>Instituições como a <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins University</a> e o <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College London</a> já demonstraram que esse mecanismo é altamente eficaz para tratar depressão resistente a tratamentos, ansiedade existencial em pacientes terminais e dependência química (álcool e tabaco).</p>
+
+                    <h2>PARTE 2: A Logística e o “Set & Setting”</h2>
+                    <p>Antes de entrar no protocolo de doses, a infraestrutura precisa ser impecável. O ambiente dita a experiência.</p>
+
+                    <ul>
+                        <li><strong>A Regra da Tolerância:</strong> Este protocolo exige um intervalo de 15 a 30 dias entre cada sessão. Menos que isso, a tolerância química anula o efeito da dose seguinte.</li>
+                        <li><strong>Preparo da Dose:</strong> Para evitar que um cogumelo individual seja muito mais forte que o outro, misture-os. Você pode triturar os cogumelos desidratados de um mesmo lote no liquidificador até virarem pó, ou simplesmente picá-los o mais fino possível com uma tesoura limpa. Pese a porção exata para cada sessão.</li>
+                        <li><strong>Peso Corporal:</strong> As doses deste protocolo são referências gerais. O peso pode influenciar a intensidade da experiência — uma dose de 3g pode afetar de forma diferente uma pessoa de 60kg e uma de 100kg. Se você estiver nos extremos (abaixo de 60kg ou acima de 90kg), considere ajustar as doses para menos ou mais dentro das faixas indicadas em cada fase.</li>
+                        <li><strong>O Set (Estado Mental):</strong> Nos dias anteriores, evite notícias ruins, estresse desnecessário e álcool. Defina uma intenção clara (Ex: "Quero entender a raiz da minha ansiedade" em vez de apenas "Quero ver qual é").</li>
+                        <li><strong>O Setting (Ambiente):</strong> Local seguro, confortável e onde você não será interrompido por pelo menos 6 horas. Quanto mais familiar, melhor. Coloque o celular em modo avião.</li>
+                        <li><strong>Acessórios:</strong> Venda para os olhos (essencial), fones de ouvido confortáveis e cobertor ou edredom (o corpo sente muito frio durante a decolagem química).</li>
+                        <li><strong>Música:</strong> A música pode carregar a experiência. Uma sugestão é usar playlists clínicas instrumentais (busque por <a href="https://open.spotify.com/playlist/7aVExA8Lb72NFNbRBZfJLJ?si=AuSdtFc7TmKnGUWV4vKLOA" target="_blank" rel="noopener noreferrer">Johns Hopkins Psilocybin Playlist no Spotify</a>). Mas não é obrigatório ouvir música e, se em algum momento sentir vontade, pode desligar.</li>
+                        <li><strong>O mais Importante:</strong> Estar confortável e seguir os seus instintos, mas sem desviar do foco interior (manter a venda nos olhos sempre que possível).</li>
+                    </ul>
+
+                    <h3>Formas de Ingestão</h3>
+                    <p>A parede celular do cogumelo é feita de quitina, uma fibra dura que o estômago tem um pouco de dificuldade para quebrar. Em algumas pessoas, isso pode gerar um leve desconforto ou enjoo na fase inicial da experiência, embora muitas pessoas não sintam absolutamente nenhuma náusea. Como mastigar o cogumelo seco tem um gosto de terra que nem todos toleram, você pode usar um destes métodos práticos para facilitar a ingestão e minimizar qualquer chance de desconforto:</p>
+
+                    <ol>
+                        <li><strong>Lemon Tek (Ácido Cítrico):</strong> Coloque o cogumelo picado ou em pó em um copo e cubra com suco de limão puro espremido na hora. Deixe descansar por 15 a 20 minutos (mexendo de vez em quando). O ácido do limão faz uma "pré-digestão" da quitina. Após o tempo, acrescente um pouco de água e beba tudo de uma vez (líquido e cogumelos). <strong>Vantagem:</strong> Reduz muito a chance de um possível enjoo e acelera o efeito.</li>
+                        <li><strong>Chá com Gengibre:</strong> Ferva água, desligue o fogo e espere 1 minuto (água fervendo destrói a substância). Coloque o cogumelo picado/em pó e algumas fatias de gengibre fresco. Deixe em infusão por 15 minutos. Coe o líquido e jogue a massa do cogumelo fora, bebendo apenas o chá. <strong>Vantagem:</strong> A psilocibina passará para a água, o gengibre é um antiemético natural (corta um possível enjoo) e o sabor forte disfarça o gosto do cogumelo.</li>
+                        <li><strong>Alimentos Leves (Iogurte ou Banana):</strong> Misture o cogumelo picado com algo pastoso que você goste, como iogurte natural ou pasta de amendoim, ou coloque dentro de um pedaço de banana. Isso disfarça totalmente a textura e o gosto. <strong>Aviso:</strong> Evite misturar com leite puro de vaca ou alimentos pesados/gordurosos, pois uma digestão lenta pode causar letargia e desconforto físico.</li>
+                    </ol>
+
+                    <h2>PARTE 3: A Linha do Tempo da Sessão <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(O que esperar)</span></h2>
+                    <p>A psilocibina tem um relógio biológico previsível. Conhecer esse mapa do tempo evita que você entre em pânico achando que a experiência "não vai acabar nunca" ou que uma sensação estranha é sinal de que algo deu errado.</p>
+                    
+                    <blockquote>
+                        <p><strong>Atenção:</strong> A intensidade de cada etapa abaixo depende da dose. Na Fase 1 (1g), você sentirá apenas a decolagem e um platô leve, sem perder a noção da realidade. O mapa abaixo descreve a jornada completa e profunda de uma Macrodose (Fase 3).</p>
+                    </blockquote>
+
+                    <!-- Timeline Visual -->
+                    <div class="relative mt-8 ml-4 md:ml-6 space-y-10 pb-2">
+                        <!-- Linha de fundo ancorada -->
+                        <div class="absolute w-0.5 bg-gray-200 left-[-1.5px] top-3 bottom-0 z-0"></div>
+
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minuto 0 a 40: A Espera (Ansiedade Antecipatória)</strong><br>
+                            <strong>O que você sente:</strong> O seu corpo está quebrando a substância. Você pode começar a bocejar bastante, sentir frio ou calor, as mãos podem suar e é muito comum sentir um leve enjoo no estômago. A ansiedade vai bater porque você sabe que o efeito vai começar.<br>
+                            <strong>Sua tarefa:</strong> Saia das telas do celular. Foco na respiração. Lembre-se de que o desconforto inicial é apenas o seu corpo processando a química. Vai passar.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-yellow-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minuto 40 a 90: A Decolagem (A Zona de Atrito)</strong><br>
+                            <strong>O que você sente:</strong> A substância chega ao cérebro. A percepção do ambiente muda e o seu instinto de sobrevivência (o ego) vai tentar lutar contra essa perda de controle. É aqui que o medo ou a vontade de "fazer parar" costuma aparecer. O peito pode apertar.<br>
+                            <strong>Sua tarefa:</strong> Coloque a venda, deite-se, ajuste os fones de ouvido e não lute. Renda-se ao desconforto. Ele passa rápido se você parar de resistir.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-indigo-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>1h30 a 3 horas: O Pico (A Imersão)</strong><br>
+                            <strong>O que você sente:</strong> O mergulho profundo. O seu senso de tempo vai desaparecer completamente (1 minuto pode parecer 1 hora). É aqui que ocorrem as visões imersivas de olhos fechados, o choro curativo, o acesso a memórias ou a sensação de paz absoluta.<br>
+                            <strong>Sua tarefa:</strong> Mantenha-se de olhos fechados. Apenas observe o que a mente te mostra e deixe acontecer.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>3 a 5 horas: As Ondas (O Retorno)</strong><br>
+                            <strong>O que você sente:</strong> O efeito começa a descer, mas ele não some de uma vez; ele vem em "ondas". Você tira a venda, sente que está totalmente sóbrio e normal, e 10 minutos depois a percepção distorce de novo e você volta para a viagem.<br>
+                            <strong>Sua tarefa:</strong> Não ache que acabou cedo demais nem se assuste com o retorno dos efeitos. Beba água e acolha as ondas.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 bg-white z-10">
+                            <!-- Máscara invisível para esconder a linha exatamente abaixo da bolinha final -->
+                            <div class="absolute w-2 bg-white left-[-4px] top-6 bottom-[-50px] z-0"></div>
+                            <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content z-10"></div>
+                            <strong>5 a 6+ horas: A Aterrissagem (Afterglow)</strong><br>
+                            <strong>O que você sente:</strong> A alteração visual cessa completamente. Você vai se sentir fisicamente muito exausto, como se tivesse corrido uma maratona mental, mas provavelmente sentirá uma paz e uma clareza enormes.<br>
+                            <strong>Sua tarefa:</strong> Coma algo leve (frutas), descanse e inicie seu processo de integração.
+                        </div>
+                    </div>
+
+                    <!-- IMAGEM DA ESCADA -->
+                    <div class="my-12 w-full h-48 md:h-72 rounded-2xl overflow-hidden shadow-sm border border-gray-100 not-prose bg-gray-200">
+                        <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Escadas de concreto - Método em 3 fases" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </div>
+
+                    <h2>PARTE 4: “O Protocolo 1, 2, 3”</h2>
+                    <p>Este protocolo foi desenhado para contornar o mecanismo biológico de "luta e fuga" do ego. “Batemos na porta” de forma gradual para que a mente se renda voluntariamente na última fase.</p>
+                    <p>Antes de avançar de uma fase para a próxima, faça esta checagem: a experiência anterior foi processada emocionalmente? Você consegue olhar para ela sem ansiedade residual significativa? Se a resposta for não, repita a mesma dose na próxima sessão antes de escalar. O protocolo é uma sugestão de progressão, não uma obrigação. Ir devagar é sempre a escolha mais inteligente.</p>
+
+                    <h3>Fase 1 - 1g a 1.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(A Prova de Conceito)</span></h3>
+                    <ul>
+                        <li><strong>Objetivo:</strong> Quebrar o estigma e o medo da substância. Mapear o terreno fisiológico.</li>
+                        <li><strong>A Experiência:</strong> Você não perderá o controle de quem você é. Os efeitos serão primariamente físicos (bocejos, algumas risadas, sensação de frio/calor, talvez um leve enjoo) e uma alteração suave na percepção de cores e música.</li>
+                        <li><strong>Seu papel:</strong> Focar apenas no relaxamento do corpo. Entender que se o estômago embrulhar, é normal e vai passar. O sucesso aqui é terminar a sessão pensando: "Ok, isso não é tão assustador quanto me disseram".</li>
+                    </ul>
+
+                    <h3>Fase 2 - 2g a 2.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(O Mergulho Raso e a Navegação)</span></h3>
+                    <ul>
+                        <li><strong>Intervalo:</strong> pelo menos 15 dias após a Fase 1.</li>
+                        <li><strong>Objetivo:</strong> Começar a acessar conteúdos emocionais subconscientes enquanto ainda mantém uma âncora com a realidade.</li>
+                        <li><strong>A Experiência:</strong> Padrões geométricos visíveis de olhos fechados. Emoções (choro, riso) podem surgir do nada. O senso de tempo começa a distorcer. Se você tirar a venda, ainda reconhece a sala, mas a realidade já está bastante alterada.</li>
+                        <li><strong>Seu papel:</strong> Praticar a técnica de "não resistência". Se uma emoção difícil surgir, a ordem não é tentar parar, mas sim investigar. Pergunte a si mesmo: "O que isso está tentando me mostrar?".</li>
+                    </ul>
+
+                    <h3>Fase 3 - 3g a 3.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(A Macrodose e a Dissolução)</span></h3>
+                    <ul>
+                        <li><strong>Intervalo:</strong> pelo menos 15 dias após a Fase 2.</li>
+                        <li><strong>Objetivo:</strong> Desligamento da DMN, experiência de dissolução do ego para reestruturação profunda.</li>
+                        <li><strong>Preparação Específica:</strong> Esta fase exige uma preparação mais cuidadosa do que as anteriores. Nos 3 dias antes da sessão, reduza estímulos intensos — redes sociais, notícias, álcool e conversas de alto desgaste emocional. Escreva sua intenção no papel, não apenas pense nela. Se tiver alguém de confiança (mesmo que não esteja presente na sessão), avise que você fará a experiência naquele dia. Saber que alguém sabe onde você está cria uma âncora de segurança psicológica real.</li>
+                        <li><strong>A Experiência:</strong> A imersão é total. Emocionalmente avassaladora. Em certos pontos, você pode esquecer que tomou uma substância ou ter a sensação de estar morrendo ou nascendo de novo. É nesse tipo de experiência profunda que muitos participantes relatam alguns dos insights psicológicos mais significativos.</li>
+                    </ul>
+                    
+                    <blockquote>
+                        <p><strong>Vale saber:</strong> pesquisas da <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins University</a> mostram que as experiências mais difíceis — as que parecem insuportáveis no momento — frequentemente geram os maiores benefícios terapêuticos meses depois. Uma experiência desafiadora não é sinal de que algo deu errado. Quase sempre é sinal de que algo muito importante está sendo processado.</p>
+                    </blockquote>
+                    
+                    <ul>
+                        <li><strong>Seu papel:</strong> Rendição absoluta. A única regra nesta fase é: "O que quer que apareça, olhe para isso e siga em frente". Confie na substância. Confie que o corpo está seguro deitado na cama.</li>
+                    </ul>
+                    
+                    <blockquote>
+                        <p><strong>Obs.</strong> Vale um esclarecimento importante sobre a chamada “dissolução do ego”. Em algumas pessoas, doses na faixa de 3g a 3.5g já podem produzir uma redução significativa do senso habitual de identidade — momentos em que a narrativa mental de “quem eu sou” enfraquece temporariamente e a experiência passa a ser percebida com menos filtros cognitivos. No entanto, estados de dissolução mais completos são mais frequentemente associados a doses mais altas, tradicionalmente próximas de 5g de cogumelos secos. Ainda assim, estudos clínicos modernos indicam que os benefícios terapêuticos da psilocibina não dependem necessariamente de uma dissolução total do ego. Mudanças duradouras em humor, perspectiva e comportamento costumam surgir simplesmente a partir de experiências emocionalmente significativas, insights psicológicos profundos e maior flexibilidade cognitiva durante a sessão.</p>
+                    </blockquote>
+
+                    <h2>PARTE 5: Engenharia da Integração <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(A Execução Tática Pós-Sessão)</span></h2>
+                    
+                    <p>A experiência mostra a porta; a integração é você atravessando ela no dia a dia. Sem isso, a sessão foi apenas “turismo recreativo”.</p>
+
+                    <h3>1. Aterrissagem <br><span class="text-lg text-gray-500 font-medium block mt-1">(24h a 48h pós-sessão)</span></h3>
+                    <ul>
+                        <li>O cérebro está fadigado. Coma bem, durma, beba muita água.</li>
+                        <li><strong>Regra de Ouro:</strong> Nenhuma decisão drástica. Não peça demissão, não termine seu casamento e não mande mensagens impulsivas baseadas nas "epifanias" da viagem. Deixe a poeira assentar por pelo menos uma semana.</li>
+                        <li><strong>Gravação de Dados:</strong> Grave um áudio longo no celular apenas "vomitando" tudo o que lembrar da experiência. Não tente organizar ainda, apenas registre. As memórias apagam rápido, como em um sonho.</li>
+                    </ul>
+
+                    <h3>2. A Descompactação <br><span class="text-lg text-gray-500 font-medium block mt-1">(Semana 1 e 2)</span></h3>
+                    <p>Sente-se com um caderno (ou com seu facilitador) e traduza a experiência. Use perguntas como essas:</p>
+                    <ul>
+                        <li><em>Qual foi a sensação mais desconfortável da experiência? Com o que ela se parece na sua vida real?</em></li>
+                        <li><em>A substância mostrou alguma mentira que você tenha contado a si mesmo ultimamente?</em></li>
+                        <li><em>O que a experiência te pediu para soltar (deixar ir)?</em></li>
+                        <li><em>Se a experiência tivesse um tema central ou uma única frase de conselho, qual seria?</em></li>
+                    </ul>
+
+                    <h3>3. Plano de Ação e Métricas de Sucesso <br><span class="text-lg text-gray-500 font-medium block mt-1">(A Escolha de Foco)</span></h3>
+                    <p>Use a janela de neuroplasticidade para forçar a mudança comportamental. Escolha uma das métricas abaixo para focar no mês seguinte:</p>
+                    
+                    <ul>
+                        <li><strong>Opção A: Rastreamento de Micro-Hábitos (Ideal para sintomas depressivos/procrastinação):</strong><br>
+                        Pegue o maior insight da viagem e transforme em uma ação que leve poucos minutos.<br>
+                        <em>Insight:</em> "A natureza me cura, a tecnologia me adoece." -> <em>Ação:</em> "Vou ficar 10 minutos no sol sem o celular logo após acordar." Rastreie isso em um calendário.</li>
+                        
+                        <li><strong>Opção B: Diário de Gatilhos (Ideal para ansiedade/vícios):</strong><br>
+                        A substância te mostrou os seus gatilhos. Quando a vontade de fumar/beber ou a crise de ansiedade vierem nas semanas seguintes, anote: Dia, Hora, e Qual foi o sentimento exato 5 minutos antes da vontade aparecer. Você começará a ver o padrão que a psilocibina apontou.</li>
+                        
+                        <li><strong>Opção C: Escala de Humor Simples (Visão Geral):</strong><br>
+                        Todo dia à noite, dê uma nota de 1 a 10 para três coisas: Nível de Ansiedade, Qualidade do Sono e Sentimento de Conexão com os outros. Após 30 dias, compare a média com a de antes da terapia.</li>
+                    </ul>
+
+                    <h2>CONCLUSÃO</h2>
+                    <p>A psilocibina é, possivelmente, uma das ferramentas mais potentes da psiquiatria moderna para desestruturar narrativas mentais problemáticas. No entanto, o protocolo de 3 fases e o esforço da integração servem para lembrar uma verdade inegável: <strong>o cogumelo faz a cirurgia, mas a fisioterapia é responsabilidade inteiramente sua.</strong> Respeite a substância, respeite os intervalos, e use o trabalho duro da integração para solidificar a versão de si mesmo que você encontrou lá dentro.</p>
+
+                    <h3>Fundamentação Científica e Evidência Clínica</h3>
+                    <p>Nas últimas duas décadas, o interesse científico pela psilocibina voltou a crescer de forma significativa dentro da psiquiatria e da neurociência. Pesquisas conduzidas por instituições como o <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins Center for Psychedelic and Consciousness Research</a> e o <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College Centre for Psychedelic Research</a> têm investigado o potencial terapêutico da substância em ambientes clínicos controlados.</p>
+                    <p>Ensaios clínicos realizados nessas instituições observaram reduções relevantes e duradouras em sintomas de depressão resistente ao tratamento, ansiedade associada a doenças graves e alguns tipos de dependência química. Em muitos participantes, uma única sessão com psilocibina, quando combinada com preparação psicológica adequada e integração posterior, produziu mudanças perceptíveis no humor, na relação com pensamentos negativos e na forma como experiências emocionais difíceis são processadas.</p>
+                    <p>Outro achado consistente nesses estudos é que a intensidade subjetiva da experiência — especialmente quando acompanhada por sentimentos de significado pessoal ou percepção ampliada de si mesmo — costuma se correlacionar com resultados terapêuticos mais duradouros. Isso sugere que parte do efeito da psilocibina está menos relacionada a um mecanismo farmacológico isolado e mais ao tipo de experiência psicológica que ela torna possível quando ocorre em um contexto seguro e estruturado.</p>
+                    <p>Por essa razão, nos protocolos clínicos atuais a substância é tratada como um catalisador de processo terapêutico, e não como um tratamento isolado. Preparação psicológica, suporte durante a experiência e integração estruturada nas semanas seguintes são considerados componentes essenciais para transformar a experiência em mudança psicológica duradoura.</p>
+
+                    <h3>Limitações do Conhecimento Atual</h3>
+                    <p>Apesar dos resultados promissores, a pesquisa científica sobre psilocibina ainda está em expansão e diversas questões permanecem em investigação. A maioria dos estudos clínicos realizados até agora envolve amostras relativamente pequenas de participantes e ocorre em ambientes altamente controlados, com triagem psicológica rigorosa e acompanhamento profissional especializado.</p>
+                    <p>Isso significa que os resultados observados nesses contextos não se traduzem automaticamente para todos os tipos de uso ou para todos os perfis de pessoa. Fatores como histórico psicológico, contexto de vida, ambiente da experiência e qualidade do processo de integração podem influenciar profundamente os efeitos percebidos.</p>
+                    <p>Além disso, ainda não existe consenso científico definitivo sobre aspectos como frequência ideal de sessões, dosagens terapêuticas mais eficazes para diferentes condições ou a duração exata das mudanças neurobiológicas associadas à experiência psicodélica.</p>
+                    <p>Por essas razões, a literatura científica atual trata a psilocibina como uma ferramenta promissora em investigação — e não como uma solução universal. O uso responsável exige respeito à potência da substância, atenção às contraindicações e compreensão de que o valor terapêutico da experiência depende, em grande parte, do trabalho psicológico realizado antes e depois da sessão.</p>
+
+                </article>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- ABA 2: GUIA DO FACILITADOR                     -->
+            <!-- ============================================== -->
+            <div id="tab-facilitador" style="display: none;" role="tabpanel">
+                
+                <!-- HERO IMAGE FACILITADOR -->
+                <div class="w-full h-48 md:h-80 rounded-xl mb-12 overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                    <img src="Gemini_Generated_Image_l1my6sl1my6sl1my.jpg" alt="Representação macro de uma rede neural iluminada" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                </div>
+
+                <header class="mb-12 border-b pb-8">
+                    <h2 class="text-3xl md:text-4xl font-black text-chumbo tracking-tight leading-tight mb-2">
+                        Manual do Facilitador
+                    </h2>
+                    <span class="text-xl md:text-2xl text-gray-500 font-medium block mt-2">
+                        Guia de Apoio e Integração do <strong class="text-verde-clinico font-bold tracking-tight">“Protocolo 1, 2, 3”</strong>
+                    </span>
+                </header>
+
+                <article class="prose prose-lg max-w-none text-gray-800">
+                    
+                    <p><strong>Introdução: O Peso da Posição</strong><br>
+                    Este manual foi desenhado para você que assumiu a responsabilidade de ser o suporte de alguém durante o Protocolo de Escalonamento (1g, 2g, 3g) com psilocibina. Não subestime a carga emocional desta tarefa. O processo de expansão de consciência de outra pessoa pode ser denso, confuso e imprevisível. O seu papel primário é garantir que ela atravesse essa janela de vulnerabilidade psicologicamente segura e com ferramentas práticas para aplicar na vida real. Leia este guia com a sobriedade de quem está se preparando para ser a rede de segurança em um salto de paraquedas.</p>
+
+                    <p><strong>A Realidade do Seu Papel como Âncora</strong><br>
+                    Sua função não é ser um guia espiritual, um xamã ou um psicólogo improvisado. Sua função é ser o chão sólido para o qual a pessoa pode voltar. Durante o processo, a mente dela tentará fugir de emoções difíceis; seu trabalho é oferecer estabilidade para que ela não recue. O seu nível de atuação dependerá de como vocês estruturaram essa parceria:</p>
+
+                    <ul>
+                        <li><strong>Cenário 1: Apoio à Distância:</strong> Você é a torre de controle. Foca na preparação e na integração. Durante a sessão, você é o resgate. Você respeita o mergulho solitário dela, mas fica com o celular na mão com o volume no máximo.</li>
+                        <li><strong>Cenário 2: Presença Física:</strong> Você é o guardião do espaço. Você gerencia a segurança do ambiente (luz, som, temperatura). Você não "guia" a viagem, você é a âncora de segurança que senta em silêncio.</li>
+                    </ul>
+
+                    <h3>As 5 Regras de Ouro do Facilitador</h3>
+                    <p>Antes de executar qualquer técnica, o seu comportamento deve ser regido por estes princípios inegociáveis:</p>
+                    
+                    <ul>
+                        <li><strong>Segurança é a única prioridade:</strong> Você não está ali para interpretar visões ou curar ninguém, apenas para garantir a integridade física e mental da pessoa.</li>
+                        <li><strong>A viagem é dela, não sua:</strong> Nunca imponha significados, não interrompa o processo e não projete os seus medos na experiência do outro.</li>
+                        <li><strong>O silêncio é a sua melhor ferramenta:</strong> Na maior parte do tempo, a melhor atuação é ser uma presença física (ou remota) calma e calada. Menos intervenção é sempre melhor.</li>
+                        <li><strong>O medo não é um erro:</strong> Dor, choro e pânico não significam que a sessão deu errado; geralmente, são exatamente o trauma que precisava ser acessado.</li>
+                        <li><strong>A cura acontece na integração:</strong> A psilocibina apenas mostra a porta. Se não houver mudança de atitude na semana seguinte, o esforço foi inútil.</li>
+                    </ul>
+
+                    <h2>1. O Checklist de Pré-Voo (Obrigatório)</h2>
+                    <p>Antes da pessoa ingerir a substância, você (presencialmente ou exigindo confirmação à distância) deve repassar essa lista. A falta de preparação do ambiente é a principal causa de crises de pânico.</p>
+
+                    <strong>Ambiente e Infraestrutura:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> O espaço é absolutamente seguro, confortável e privado pelas próximas 6 horas?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> A iluminação pode ser controlada rapidamente (abajures, cortinas)?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Água, banheiro e um local para vomitar (caso o enjoo seja forte) estão de fácil acesso?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> A venda para os olhos, fones de ouvido e cobertor/edredom (para o frio da decolagem) estão prontos?</li>
+                    </ul>
+
+                    <strong>Comunicação e Blindagem Externa:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> O celular da pessoa está em modo avião ou com notificações bloqueadas? (Exceção apenas para falar com você no Cenário 1).</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Vocês alinharam que ela não tem nenhum compromisso social, familiar ou de trabalho pelo resto do dia?</li>
+                    </ul>
+
+                    <strong>Estado Físico e Intenção:</strong>
+                    <ul class="list-none pl-0">
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> A pessoa fez uma refeição muito leve ou está em jejum de 2 a 3 horas?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> Ela evitou álcool e outras substâncias nas últimas 24 horas?</li>
+                        <li class="flex items-start mb-2"><svg class="w-6 h-6 text-gray-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" stroke-width="2"></rect></svg> A intenção da sessão (o "por que estamos fazendo isso") foi verbalizada de forma clara?</li>
+                    </ul>
+
+                    <h2>2. O Relógio Químico <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(A Linha do Tempo da Sessão)</span></h2>
+                    <p>Para ancorar alguém, você precisa saber em que fase da absorção química a pessoa está. A psilocibina tem um ciclo previsível. Se você conhecer o relógio, não será pego de surpresa.</p>
+
+                    <!-- Timeline Visual Facilitador -->
+                    <div class="relative mt-8 ml-4 md:ml-6 space-y-10 pb-2">
+                        <div class="absolute w-0.5 bg-gray-200 left-[-1.5px] top-3 bottom-0 z-0"></div>
+
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minuto 0 a 40: A Espera e a Ansiedade Antecipatória</strong><br>
+                            <strong>O que acontece:</strong> O corpo está convertendo psilocibina em psilocina. A pessoa sente frio, boceja muito e pode ter enjoo. A ansiedade dispara.<br>
+                            <strong>[Apoio Presencial]:</strong> Garanta que o checklist foi cumprido. Incentive a respiração profunda.<br>
+                            <strong>[Apoio à Distância]:</strong> Mande uma mensagem: "A substância está no estômago. Desligue tudo e me avise quando colocar a venda para deitar."
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-yellow-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>Minuto 40 a 90: A Decolagem (O Ponto Crítico)</strong><br>
+                            <strong>O que acontece:</strong> A psilocina atinge o cérebro. É aqui que a grande maioria das crises ocorre. O alarme de "fuga" dispara e o ego tenta lutar para não desligar.<br>
+                            <strong>[Apoio Presencial]:</strong> Oriente-a a colocar a venda e os fones. Diga: "O desconforto é o seu corpo resistindo. Deite e se entregue."<br>
+                            <strong>[Apoio à Distância]:</strong> Não faça contato. Se ela enviar mensagem dizendo que está com medo, envie áudio firme: "Isso é a decolagem. Saia do celular, coloque a venda e respire. Deixe vir."
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-indigo-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>1h30 a 3 horas: O Pico Químico (A Imersão)</strong><br>
+                            <strong>O que acontece:</strong> A Rede de Modo Padrão (DMN) pode atingir o desligamento máximo. A pessoa está no ápice da experiência (dissolução do ego, acesso a dores profundas).<br>
+                            <strong>[Apoio Presencial]:</strong> Permita que a experiência se desenvolva. Não pergunte se ela está bem, não ofereça água se não for pedido. Intervenha apenas se houver pânico agudo.<br>
+                            <strong>[Apoio à Distância]:</strong> O seu celular deve ficar em silêncio. Ela precisa estar desconectada do mundo externo.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 z-10">
+                            <div class="absolute w-4 h-4 bg-verde-clinico rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content"></div>
+                            <strong>3 a 5 horas: O Platô e o Retorno (As Ondas)</strong><br>
+                            <strong>O que acontece:</strong> O fígado começa a limpar a substância. O efeito vem em "ondas": a pessoa parece sóbria, e 5 minutos depois a percepção distorce novamente.<br>
+                            <strong>[Apoio Presencial]:</strong> Seja receptivo. Se ela quiser falar, escute. Se quiser chorar, deixe. Ofereça água.<br>
+                            <strong>[Apoio à Distância]:</strong> Ela provavelmente fará o primeiro contato aqui. Acolha, mas oriente-a a continuar deitada de olhos fechados até a onda passar totalmente.
+                        </div>
+                        <div class="relative pl-6 md:pl-8 bg-white z-10">
+                            <!-- Máscara invisível -->
+                            <div class="absolute w-2 bg-white left-[-4px] top-6 bottom-[-50px] z-0"></div>
+                            <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm box-content z-10"></div>
+                            <strong>5 a 6+ horas: A Aterrissagem (Afterglow)</strong><br>
+                            <strong>O que acontece:</strong> O efeito visual acaba. Exaustão física acompanhada de euforia mental.<br>
+                            <strong>[Apoio Presencial/À Distância]:</strong> Incentive que ela coma algo leve (frutas) para repor glicose.
+                        </div>
+                    </div>
+
+                    <!-- IMAGEM DA ESCADA -->
+                    <div class="my-12 w-full h-48 md:h-80 rounded-xl overflow-hidden border border-gray-100 not-prose bg-gray-200">
+                        <img src="Gemini_Generated_Image_htp31thtp31thtp3.jpg" alt="Escadas de concreto - Método em 3 fases" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </div>
+
+                    <h2>3. Gestão Prática das Fases <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(A Abordagem em cada Dose)</span></h2>
+                    <p>A psilocibina faz o trabalho; você só garante o ambiente.</p>
+
+                    <h3>Fase 1 - 1g a 1.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(Quebra de Estigma)</span></h3>
+                    <ul>
+                        <li><strong>O cenário esperado:</strong> A pessoa não perderá a consciência da realidade. Sentirá os efeitos físicos da "Decolagem", mas não chegará a um mergulho profundo.</li>
+                        <li><strong>O que fazer [Presencial e Distância]:</strong> Valide as sensações físicas. "O enjoo é só o estômago processando o cogumelo. Passa rápido."</li>
+                        <li><strong>O Erro Fatal:</strong> Não crie expectativas místicas. Se a pessoa disser "Acho que bateu fraco", não sugira que ela tome mais (redose). Diga: "O objetivo hoje é provar que a substância é segura. O mergulho fica para a próxima."</li>
+                    </ul>
+
+                    <h3>Fase 2 - 2g a 2.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(O Treino de Não Resistência)</span></h3>
+                    <ul>
+                        <li><strong>O cenário esperado:</strong> Conteúdos emocionais emergem. Choro, distorção de tempo, padrões visuais.</li>
+                        <li><strong>O que fazer [Presencial]:</strong> Se ela demonstrar angústia física, ofereça a mão em silêncio ou diga calmamente: "Respira através disso."</li>
+                        <li><strong>O que fazer [Distância]:</strong> Lembre-a antes da sessão: "Se der vontade de chorar, não engula o choro. Tente resolver primeiro com a respiração."</li>
+                        <li><strong>O Erro Fatal:</strong> Se a pessoa começar a chorar, não tente consolá-la. O choro frequentemente indica liberação emocional profunda. Consolar é reprimir o processo. Deixe-a esvaziar.</li>
+                    </ul>
+
+                    <h3>Fase 3 - 3g a 3.5g <br><span class="text-lg md:text-xl text-gray-500 font-medium block mt-1">(A Dissolução do Ego)</span></h3>
+                    <ul>
+                        <li><strong>O cenário esperado:</strong> Perda total de controle executivo durante o "pico". Pode haver desorientação profunda e confronto com medos internos.</li>
+                        <li><strong>O que fazer [Presencial]:</strong> Mantenha o ambiente seguro e silencioso. Lembre-a: "Olhe diretamente para o que aparecer."</li>
+                        <li><strong>O que fazer [Distância]:</strong> Alinhamento pré-sessão: "Enfrente o medo. Só me ligue se sentir que perdeu completamente o controle sobre a sua segurança física."</li>
+                        <li><strong>O Erro Fatal:</strong> Evite conversas analíticas. Se a pessoa tirar a venda confusa e tentar explicar o que está vivenciando, escute brevemente, mas não engate papo. "Guarda para depois. Coloca a venda e volta para dentro."</li>
+                    </ul>
+
+                    <h2>4. Gestão de Crise - O Protocolo S.O.S.</h2>
+                    <p>O pânico agudo acontece quando o ego da pessoa luta contra a experiência. Assuma o controle.</p>
+
+                    <ul>
+                        <li><strong>Quebra do Loop Mental (Geometria e Luz):</strong><br>
+                        <strong>A Tática:</strong> Force a mudança física do ambiente para quebrar a espiral do cérebro.<br>
+                        <strong>[Apoio Presencial]:</strong> Acenda a luz do abajur. Tire os fones de ouvido dela. Segure a mão dela e peça para ela se sentar na cama.<br>
+                        <strong>[Apoio à Distância]:</strong> Ordene na chamada: "Levante o corpo. Acenda a luz do quarto. Tire os fones e coloque no viva-voz. Me diga quando tiver feito isso."</li>
+                        
+                        <li><strong>Assuma o Comando Direto e Calmo:</strong><br>
+                        <strong>A Tática:</strong> Fale com clareza e voz diretiva. A capacidade executiva dela está desligada.<br>
+                        <strong>[Presencial e Distância]:</strong> "João, ouça a minha voz. Sou eu, [Seu Nome]. Você está sob o efeito de cogumelo. Você está perfeitamente seguro."<br>
+                        <strong>O Erro Fatal:</strong> Não pergunte "O que você está vendo?". Tentar explicar o delírio vai piorar o pânico.</li>
+
+                        <li><strong>Ancoragem Fisiológica Extrema:</strong><br>
+                        <strong>A Tática:</strong> Jogue o foco para o corpo físico denso.<br>
+                        <strong>[Apoio Presencial]:</strong> Segure os ombros dela. "Sinta a minha mão. Sinta o chão com os pés."<br>
+                        <strong>[Apoio à Distância]:</strong> "Aperte a sua perna com a mão direita agora. Force os dedos. Sinta a textura da cama."</li>
+
+                        <li><strong>A Regra da Passagem do Tempo:</strong><br>
+                        <strong>A Tática:</strong> O pânico distorce o tempo. Traga a lógica química.<br>
+                        <strong>[Presencial e Distância]:</strong> "Você tomou a dose faz 2 horas. O pico químico já passou. O fígado está limpando a substância. Respire comigo." (Guie a respiração: 4s inspirando, 6s expirando).</li>
+                    </ul>
+
+                    <h3>A Linha Vermelha <br><span class="text-lg text-gray-500 font-medium block mt-1">(Quando chamar socorro médico)</span></h3>
+                    <p>Experiências assustadoras são normais. Emergências médicas são extremamente incomuns, mas possíveis. Quebre o protocolo e procure um hospital imediatamente se a pessoa apresentar:</p>
+                    <ul>
+                        <li>Dor forte e contínua no peito ou irradiação para o braço esquerdo (potencial crise cardíaca pelo aumento da pressão).</li>
+                        <li>Dificuldade severa para respirar (não confundir com respiração ofegante de ansiedade) ou desmaio/perda de consciência total.</li>
+                        <li>Comportamento desorganizado com risco real e iminente de violência contra si mesma ou contra você (ex: tentar pular da janela, agressividade física extrema que não cede à quebra de loop ou ancoragem).</li>
+                    </ul>
+
+                    <h2>5. O Processo de Integração <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(A Execução Tática Pós-Sessão)</span></h2>
+                    <p>A neuroplasticidade está ativada por até 30 dias. A <strong>Regra de Ouro da Não Indução</strong> governa esta fase: Você nunca entrega a resposta, você apenas faz a pergunta.</p>
+
+                    <h3>A. Aterrissagem <br><span class="text-lg text-gray-500 font-medium block mt-1">(24h a 48h)</span></h3>
+                    <p><strong>O Bloqueio de Ação:</strong> A pessoa pode acordar eufórica, querendo tomar decisões drásticas. Não permita que ela tome decisões estruturais por 14 dias. Force para que ela grave um áudio relatando tudo para você antes que a memória se dissipe.</p>
+
+                    <h3>B. Descompactação <br><span class="text-lg text-gray-500 font-medium block mt-1">(Tradução e Mapa Somático)</span></h3>
+                    <p>Conduza conversas focadas em trazer as visões para a realidade.</p>
+
+                    <p><strong>1. Tradução de Metáforas:</strong><br>
+                    <strong>A pessoa diz:</strong> "Eu vi um monstro gigante me esmagando e não conseguia respirar."<br>
+                    <strong>O Erro Fatal:</strong> "Isso é um encosto" ou "Isso é seu pai autoritário." (Falso diagnóstico).<br>
+                    <strong>A tática correta:</strong> "A psilocibina projeta medos em imagens. Que situação na sua vida real de hoje faz você se sentir esmagado e sem ar?"</p>
+
+                    <p><strong>2. O Mapa Somático (Entendendo o Corpo):</strong><br>
+                    O mapa abaixo é uma ferramenta de direcionamento, não um diagnóstico. Tensões não processadas se manifestam como dores ou frio no corpo durante a viagem. Use as perguntas para ajudar a pessoa a conectar o sintoma com a vida real, mas exija que ela mesma chegue à conclusão.</p>
+                    
+                    <ul>
+                        <li><strong>Cabeça / Testa:</strong> Excesso de controle mental. Pergunta: "Você tem sentido necessidade de controlar obsessivamente a sua vida ultimamente?"</li>
+                        <li><strong>Garganta / Mandíbula:</strong> Verdades não ditas, raiva reprimida. Pergunta: "Em quais situações você quis falar algo importante, mas engoliu a seco e se calou?"</li>
+                        <li><strong>Peito / Coração:</strong> Luto emocional, tristeza reprimida. Pergunta: "Existe alguma dor ou perda recente que você empurrou para baixo para continuar trabalhando?"</li>
+                        <li><strong>Estômago / Abdômen:</strong> Medo da sobrevivência básica. Pergunta: "O seu estômago costuma travar assim quando você se sente ameaçado financeiramente ou no trabalho?"</li>
+                        <li><strong>Órgãos Sexuais / Pelve:</strong> A pelve é o cofre da energia vital, vergonha e intimidade.<br>
+                        <strong>O Erro Fatal:</strong> NUNCA sugira um trauma ou abuso sexual. Não crie falsas memórias.<br>
+                        <strong>Pergunta Segura:</strong> "A região pélvica guarda nossa intimidade. Existe alguma parte de quem você é que você esconde ou tem vergonha de mostrar para os seus parceiros?"</li>
+                    </ul>
+
+                    <h3>C. Execução e Rastreamento <br><span class="text-lg text-gray-500 font-medium block mt-1">(Semanas 2 a 6)</span></h3>
+                    <p>Insights profundos precisam virar comportamento, senão são apenas “turismo recreativo”.</p>
+                    <ul>
+                        <li><strong>O Princípio da Micro-Ação:</strong> Ajude a pessoa a destilar a percepção da Fase 3 em uma ação prática de alguns minutos. Você não define a regra, você faz a pergunta: "Qual pequena ação de alguns minutos você pode fazer amanhã de manhã para quebrar esse comportamento automático?" Quando ela responder (ex: respirar antes de pegar o celular), firme o acordo: "Excelente. Posso te cobrar isso amanhã?"</li>
+                        <li><strong>Acompanhamento:</strong> Mande mensagens cobrando a execução que ela definiu. Se ela falhar, lembre-a do insight exato da dose.</li>
+                    </ul>
+
+                    <h2>6. O Embasamento Científico <br><span class="text-xl md:text-2xl text-gray-500 font-medium block mt-1">(Por que este manual funciona)</span></h2>
+                    <p>As orientações refletem princípios utilizados em pesquisas modernas. Se a pessoa questionar o processo, aqui estão os dados:</p>
+                    <ul>
+                        <li><strong>O Desligamento da DMN:</strong> Pesquisas do <a href="https://www.imperial.ac.uk/psychedelic-research-centre/" target="_blank" rel="noopener noreferrer">Imperial College London</a> (fMRI) indicam que a psilocibina reduz o fluxo sanguíneo na Default Mode Network, rede associada à ruminação depressiva. Evitar conversas analíticas na Fase 3 é vital para permitir que a mente permaneça introspectiva e a DMN desligada.</li>
+                        <li><strong>A Experiência Mística:</strong> Estudos do <a href="https://www.hopkinspsychedelic.org/" target="_blank" rel="noopener noreferrer">Johns Hopkins Center</a> demonstraram que o grau de sucesso no tratamento psicológico se correlaciona com experiências de dissolução do ego. Experiências difíceis ou assustadoras costumam gerar grandes resultados, por isso a regra de "enfrente o medo" é central.</li>
+                        <li><strong>Neuroplasticidade e BDNF:</strong> A psilocibina promove o crescimento temporário de conexões neurais e o aumento do BDNF (Fator Neurotrófico Derivado do Cérebro), abrindo uma "janela de maleabilidade". Sem a criação de novos hábitos (Integração), a tendência é o retorno ao padrão antigo.</li>
+                        <li><strong>A Importância do Set & Setting:</strong> Em todos os principais ensaios clínicos modernos revisados por pares, a substância é administrada com pelo menos um facilitador presente para garantir segurança psicológica.</li>
+                    </ul>
+
+                    <h2>7. Conclusão: O Desmame e o Autocuidado</h2>
+                    
+                    <h3>A Hora de Recuar</h3>
+                    <p>Ao final de 4 a 6 semanas de integração após a macrodose, você precisa se retirar da posição de "guardião". O objetivo é dar autonomia à pessoa. Se ela continuar dependendo do seu suporte constante, o protocolo virou uma muleta. Volte a ser apenas um amigo comum.</p>
+
+                    <h3>O Custo para o Facilitador</h3>
+                    <p>Ancorar crises e absorver relatos de trauma exige muita energia. Não normalize esse desgaste. Após o término do ciclo, tire um tempo para se desconectar do processo. Você ofereceu chão seguro quando tudo parecia desabar; o restante da caminhada é responsabilidade exclusiva dela.</p>
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- RODAPÉ COMPLETO -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-500 text-center space-y-4">
+            <p class="font-bold uppercase tracking-wider text-gray-400">Redução de Danos - Open Source</p>
+            <p>O Protocolo 1, 2, 3 é estritamente informativo. Nenhuma substância é comercializada ou encorajada.</p>
+            <p>Contato: <a href="mailto:protocolo123.com@proton.me" onclick="copyEmail(event, 'protocolo123.com@proton.me')" class="text-verde-clinico hover:text-chumbo transition underline font-medium">protocolo123.com@proton.me</a></p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT DE FUNCIONAMENTO (Blindado) -->
+    <script>
+        function acceptLegal() {
+            document.getElementById('legalModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function openSOS() {
+            const sosModal = document.getElementById('sosModal');
+            sosModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+            window.scrollTo(0, 0);
+        }
+
+        function closeSOS() {
+            const sosModal = document.getElementById('sosModal');
+            sosModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        // Fechar S.O.S com a tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const sosModal = document.getElementById('sosModal');
+                if (sosModal.style.display === 'flex') {
+                    closeSOS();
+                }
+            }
+        });
+
+        // Função de Cópia do E-mail
+        function copyEmail(e, email) {
+            if(navigator.clipboard && window.isSecureContext) {
+                e.preventDefault(); 
+                navigator.clipboard.writeText(email).then(function() {
+                    const link = e.target;
+                    const originalText = link.innerText;
+                    link.innerText = "Copiado!";
+                    setTimeout(function() { link.innerText = originalText; }, 2000);
+                });
+            }
+        }
+
+        function switchTab(tabId) {
+            document.getElementById('tab-user').style.display = 'none';
+            document.getElementById('tab-facilitador').style.display = 'none';
+            
+            document.getElementById('btn-gateway-user').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-gateway-facilitador').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-user').setAttribute('aria-selected', 'false');
+            document.getElementById('btn-facilitador').setAttribute('aria-selected', 'false');
+            
+            // Estilos originais (inativos)
+            document.getElementById('btn-gateway-user').className = 'p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer';
+            document.getElementById('btn-gateway-user').querySelector('p').className = 'text-gray-500 text-xs md:text-sm font-medium';
+            document.getElementById('btn-gateway-facilitador').className = 'p-5 md:p-6 rounded-2xl border-2 border-gray-300 bg-white text-chumbo text-center transition shadow-sm hover:border-chumbo hover:shadow-md cursor-pointer';
+            document.getElementById('btn-gateway-facilitador').querySelector('p').className = 'text-gray-500 text-xs md:text-sm font-medium';
+
+            document.getElementById('btn-user').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none';
+            document.getElementById('btn-facilitador').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-500 hover:text-chumbo transition flex-1 md:flex-none';
+            
+            // Ativa a aba
+            document.getElementById(tabId).style.display = 'block';
+            
+            if(tabId === 'tab-user') {
+                document.getElementById('btn-gateway-user').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-gateway-user').className = 'p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer';
+                document.getElementById('btn-gateway-user').querySelector('p').className = 'text-gray-300 text-xs md:text-sm font-medium';
+
+                document.getElementById('btn-user').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-user').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none';
+            } else {
+                document.getElementById('btn-gateway-facilitador').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-gateway-facilitador').className = 'p-5 md:p-6 rounded-2xl border-2 border-chumbo bg-chumbo text-white text-center transition shadow-lg cursor-pointer';
+                document.getElementById('btn-gateway-facilitador').querySelector('p').className = 'text-gray-300 text-xs md:text-sm font-medium';
+
+                document.getElementById('btn-facilitador').setAttribute('aria-selected', 'true');
+                document.getElementById('btn-facilitador').className = 'px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-chumbo transition shadow-sm flex-1 md:flex-none';
+            }
+            
+            // Cálculo seguro do Scroll
+            const contentContainer = document.getElementById('conteudo-guias');
+            if (contentContainer) {
+                const contentTop = contentContainer.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: contentTop, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        document.body.classList.add('modal-open');
+    </script>
+</body>
+</html>
